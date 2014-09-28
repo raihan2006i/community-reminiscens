@@ -1,9 +1,9 @@
-class User < ActiveRecord::Base
+class AdminUser < ActiveRecord::Base
   # Start external modules declaration
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # End external modules declaration
@@ -13,8 +13,6 @@ class User < ActiveRecord::Base
   # End constants declaration
 
   # Start relations declaration
-
-  has_one :person
 
   # End relations declaration
 
@@ -28,6 +26,8 @@ class User < ActiveRecord::Base
   # End instance method declaration
 
   # Start class method declaration
-
+  # Please try to maintain alphabetical order
+  
   # End class method declaration
+
 end

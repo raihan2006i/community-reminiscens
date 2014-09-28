@@ -1,10 +1,7 @@
-class User < ActiveRecord::Base
+class Role < ActiveRecord::Base
   # Start external modules declaration
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  scopify
 
   # End external modules declaration
 
@@ -14,7 +11,8 @@ class User < ActiveRecord::Base
 
   # Start relations declaration
 
-  has_one :person
+  has_and_belongs_to_many :people, join_table: :people_roles
+  belongs_to :resource, polymorphic: true
 
   # End relations declaration
 

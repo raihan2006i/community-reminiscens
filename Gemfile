@@ -45,3 +45,15 @@ gem 'spring',        group: :development
 
 # Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 3.3.0'
+
+# Simple authorization solution for Rails which is decoupled from user roles. All permissions are stored in a single location.
+gem 'cancan', '~> 1.6.10'
+
+# Very simple Roles library without any authorization enforcement supporting scope on resource objects (instance or class)
+gem 'rolify', '~> 3.4.1'
+
+# The administration framework for Ruby on Rails applications
+gem 'activeadmin', github: 'activeadmin'
+
+# Provides a simple helper to get an HTML select list of countries
+gem 'country_select', '~> 2.0.1'
