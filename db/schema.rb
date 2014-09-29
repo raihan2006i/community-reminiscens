@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140928110919) do
+ActiveRecord::Schema.define(version: 20140929121515) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -45,6 +45,17 @@ ActiveRecord::Schema.define(version: 20140928110919) do
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.integer  "creator_id"
+    t.integer  "manager_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["creator_id"], name: "index_groups_on_creator_id", using: :btree
+  add_index "groups", ["manager_id"], name: "index_groups_on_manager_id", using: :btree
 
   create_table "people", force: true do |t|
     t.string   "first_name"
@@ -80,6 +91,52 @@ ActiveRecord::Schema.define(version: 20140928110919) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "stories", force: true do |t|
+    t.integer  "teller_id"
+    t.integer  "creator_id"
+    t.integer  "story_theme_id"
+    t.integer  "story_context_id"
+    t.date     "telling_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stories", ["creator_id"], name: "index_stories_on_creator_id", using: :btree
+  add_index "stories", ["story_context_id"], name: "index_stories_on_story_context_id", using: :btree
+  add_index "stories", ["story_theme_id"], name: "index_stories_on_story_theme_id", using: :btree
+  add_index "stories", ["teller_id"], name: "index_stories_on_teller_id", using: :btree
+
+  create_table "story_contexts", force: true do |t|
+    t.string   "name"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "story_contexts", ["creator_id"], name: "index_story_contexts_on_creator_id", using: :btree
+
+  create_table "story_fragments", force: true do |t|
+    t.text     "content"
+    t.integer  "story_id"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "story_fragments", ["creator_id"], name: "index_story_fragments_on_creator_id", using: :btree
+  add_index "story_fragments", ["story_id"], name: "index_story_fragments_on_story_id", using: :btree
+
+  create_table "story_themes", force: true do |t|
+    t.string   "name"
+    t.integer  "creator_id"
+    t.integer  "start_age"
+    t.integer  "end_age"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "story_themes", ["creator_id"], name: "index_story_themes_on_creator_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

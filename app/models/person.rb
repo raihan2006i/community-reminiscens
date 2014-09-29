@@ -14,7 +14,10 @@ class Person < ActiveRecord::Base
   # Start relations declaration
 
   belongs_to :user
-
+  has_many :telling_stories, class_name: 'Story', foreign_key: 'teller_id'
+  has_many :created_stories, class_name: 'Story', foreign_key: 'creator_id'
+  has_many :manageable_groups, class_name: 'Group', foreign_key: 'manager_id'
+  has_many :created_groups, class_name: 'Group', foreign_key: 'creator_id'
   # End relations declaration
 
   # Start validations declaration
