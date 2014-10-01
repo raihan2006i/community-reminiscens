@@ -1,7 +1,10 @@
-class Story < ActiveRecord::Base
+class Comment < ActiveRecord::Base
   # Start external modules declaration
 
-  acts_as_commentable
+  include ActsAsCommentable::Comment
+  # NOTE: install the acts_as_votable plugin if you
+  # want user to vote on the quality of comments.
+  #acts_as_voteable
 
   # End external modules declaration
 
@@ -11,10 +14,8 @@ class Story < ActiveRecord::Base
 
   # Start relations declaration
 
-  belongs_to :creator, class_name: 'Person', foreign_key: 'creator_id'
-  belongs_to :teller, class_name: 'Person', foreign_key: 'teller_id'
-  belongs_to :story_theme
-  belongs_to :story_context
+  belongs_to :commentable, polymorphic: true
+  belongs_to :person
 
   # End relations declaration
 

@@ -57,3 +57,6 @@ gem 'activeadmin', github: 'activeadmin'
 
 # Provides a simple helper to get an HTML select list of countries
 gem 'country_select', '~> 2.0.1'
+
+# Plugin/gem that provides comment functionality
+gem 'acts_as_commentable', '~> 4.0.1'
