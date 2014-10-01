@@ -11,10 +11,10 @@ class Story < ActiveRecord::Base
 
   # Start relations declaration
 
-  belongs_to :creator, class_name: 'Person', foreign_key: 'creator_id'
-  belongs_to :teller, class_name: 'Person', foreign_key: 'teller_id'
-  belongs_to :story_theme
+  belongs_to :creator, polymorphic: true
   belongs_to :story_context
+  belongs_to :story_theme
+  belongs_to :teller, class_name: 'Person', foreign_key: 'teller_id'
 
   # End relations declaration
 

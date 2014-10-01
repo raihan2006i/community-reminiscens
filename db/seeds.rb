@@ -9,3 +9,8 @@ else
   AdminUser.create!(email: 'admin@reminiscens.com', password: '12345678', password_confirmation: '12345678')
   puts 'Default AdminUser has been created'
 end
+
+puts 'Creating predefined StoryContexts ...'
+# TODO
+puts 'Creating predefined StoryThemes ...'
+# TODO

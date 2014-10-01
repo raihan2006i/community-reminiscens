@@ -5,16 +5,20 @@ class StoryContext < ActiveRecord::Base
 
   # Start constants declaration
 
+  SOURCES = %w(predefined contributed)
+
   # End constants declaration
 
   # Start relations declaration
 
-  belongs_to :creator, class_name: 'Person', foreign_key: 'creator_id'
+  belongs_to :creator, polymorphic: true
   has_many :stories
 
   # End relations declaration
 
   # Start validations declaration
+
+  validates :name, presence: true
 
   # End validations declaration
 

@@ -7,14 +7,19 @@ class StoryTheme < ActiveRecord::Base
 
   # End constants declaration
 
+  SOURCES = %w(predefined contributed)
+
   # Start relations declaration
 
-  belongs_to :creator, class_name: 'Person', foreign_key: 'creator_id'
+  belongs_to :creator, polymorphic: true
   has_many :stories
 
   # End relations declaration
 
   # Start validations declaration
+
+  validates :name, presence: true
+  validates :start_age, :end_age, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
 
   # End validations declaration
 

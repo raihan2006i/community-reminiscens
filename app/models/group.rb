@@ -9,7 +9,7 @@ class Group < ActiveRecord::Base
 
   # Start relations declaration
 
-  belongs_to :creator, class_name: 'Person', foreign_key: 'creator_id'
+  belongs_to :creator, polymorphic: true
   belongs_to :manager, class_name: 'Person', foreign_key: 'manager_id'
   has_many :persons
 

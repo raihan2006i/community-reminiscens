@@ -57,19 +57,19 @@ ActiveRecord::Schema.define(version: 20140929124410) do
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
-  add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["person_id"], name: "index_comments_on_person_id", using: :btree
 
   create_table "groups", force: true do |t|
     t.string   "name"
-    t.integer  "creator_id"
     t.integer  "manager_id"
+    t.integer  "creator_id"
+    t.string   "creator_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "groups", ["creator_id"], name: "index_groups_on_creator_id", using: :btree
+  add_index "groups", ["creator_id", "creator_type"], name: "index_groups_on_creator_id_and_creator_type", using: :btree
   add_index "groups", ["manager_id"], name: "index_groups_on_manager_id", using: :btree
 
   create_table "people", force: true do |t|
@@ -109,15 +109,16 @@ ActiveRecord::Schema.define(version: 20140929124410) do
 
   create_table "stories", force: true do |t|
     t.integer  "teller_id"
-    t.integer  "creator_id"
     t.integer  "story_theme_id"
     t.integer  "story_context_id"
     t.date     "telling_date"
+    t.integer  "creator_id"
+    t.string   "creator_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "stories", ["creator_id"], name: "index_stories_on_creator_id", using: :btree
+  add_index "stories", ["creator_id", "creator_type"], name: "index_stories_on_creator_id_and_creator_type", using: :btree
   add_index "stories", ["story_context_id"], name: "index_stories_on_story_context_id", using: :btree
   add_index "stories", ["story_theme_id"], name: "index_stories_on_story_theme_id", using: :btree
   add_index "stories", ["teller_id"], name: "index_stories_on_teller_id", using: :btree
@@ -125,33 +126,38 @@ ActiveRecord::Schema.define(version: 20140929124410) do
   create_table "story_contexts", force: true do |t|
     t.string   "name"
     t.integer  "creator_id"
+    t.string   "creator_type"
+    t.string   "source",       default: "contributed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "story_contexts", ["creator_id"], name: "index_story_contexts_on_creator_id", using: :btree
+  add_index "story_contexts", ["creator_id", "creator_type"], name: "index_story_contexts_on_creator_id_and_creator_type", using: :btree
 
   create_table "story_fragments", force: true do |t|
     t.text     "content"
     t.integer  "story_id"
     t.integer  "creator_id"
+    t.string   "creator_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "story_fragments", ["creator_id"], name: "index_story_fragments_on_creator_id", using: :btree
+  add_index "story_fragments", ["creator_id", "creator_type"], name: "index_story_fragments_on_creator_id_and_creator_type", using: :btree
   add_index "story_fragments", ["story_id"], name: "index_story_fragments_on_story_id", using: :btree
 
   create_table "story_themes", force: true do |t|
     t.string   "name"
-    t.integer  "creator_id"
     t.integer  "start_age"
     t.integer  "end_age"
+    t.integer  "creator_id"
+    t.string   "creator_type"
+    t.string   "source",       default: "contributed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "story_themes", ["creator_id"], name: "index_story_themes_on_creator_id", using: :btree
+  add_index "story_themes", ["creator_id", "creator_type"], name: "index_story_themes_on_creator_id_and_creator_type", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

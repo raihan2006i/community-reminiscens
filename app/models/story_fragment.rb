@@ -9,8 +9,8 @@ class StoryFragment < ActiveRecord::Base
 
   # Start relations declaration
 
+  belongs_to :creator, polymorphic: true
   belongs_to :story
-  belongs_to :creator, class_name: 'Person', foreign_key: 'creator_id'
 
   # End relations declaration
 
