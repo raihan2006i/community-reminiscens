@@ -1,6 +1,9 @@
 class StoryContext < ActiveRecord::Base
   # Start external modules declaration
 
+  # Translated fields with globalize and for active admin
+  active_admin_translates :name
+
   # End external modules declaration
 
   # Start constants declaration

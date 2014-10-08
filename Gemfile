@@ -60,3 +60,12 @@ gem 'country_select', '~> 2.0.1'
 
 # Plugin/gem that provides comment functionality
 gem 'acts_as_commentable', '~> 4.0.1'
+
+# Rails I18n de-facto standard library for ActiveRecord model/data translation.
+gem 'globalize', '~> 4.0.2'
+
+# A set of common locale data and translations to internationalize and/or localize your Rails applications.
+gem 'rails-i18n', '~> 4.0.3'
+
+# Provides translation UI for ActiveAdmin and Globalize gems
+gem 'activeadmin-globalize', github: 'stefanoverna/activeadmin-globalize',  branch: 'master'

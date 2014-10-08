@@ -20,4 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      story_context: "Areas"
+      story_theme: "Themes"
+    attributes:
+      story_context:
+        name: "Name"
+      story_theme:
+        name: "Name"

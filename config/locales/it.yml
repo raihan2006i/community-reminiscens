@@ -1,0 +1,10 @@
+it:
+  activerecord:
+    models:
+      story_context: "Ambiti"
+      story_theme: "Temi"
+    attributes:
+      story_context:
+        name: "Nome"
+      story_theme:
+        name: "Nome"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140929124410) do
+ActiveRecord::Schema.define(version: 20141008134557) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -123,6 +123,17 @@ ActiveRecord::Schema.define(version: 20140929124410) do
   add_index "stories", ["story_theme_id"], name: "index_stories_on_story_theme_id", using: :btree
   add_index "stories", ["teller_id"], name: "index_stories_on_teller_id", using: :btree
 
+  create_table "story_context_translations", force: true do |t|
+    t.integer  "story_context_id", null: false
+    t.string   "locale",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
+
+  add_index "story_context_translations", ["locale"], name: "index_story_context_translations_on_locale", using: :btree
+  add_index "story_context_translations", ["story_context_id"], name: "index_story_context_translations_on_story_context_id", using: :btree
+
   create_table "story_contexts", force: true do |t|
     t.string   "name"
     t.integer  "creator_id"
@@ -145,6 +156,17 @@ ActiveRecord::Schema.define(version: 20140929124410) do
 
   add_index "story_fragments", ["creator_id", "creator_type"], name: "index_story_fragments_on_creator_id_and_creator_type", using: :btree
   add_index "story_fragments", ["story_id"], name: "index_story_fragments_on_story_id", using: :btree
+
+  create_table "story_theme_translations", force: true do |t|
+    t.integer  "story_theme_id", null: false
+    t.string   "locale",         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
+
+  add_index "story_theme_translations", ["locale"], name: "index_story_theme_translations_on_locale", using: :btree
+  add_index "story_theme_translations", ["story_theme_id"], name: "index_story_theme_translations_on_story_theme_id", using: :btree
 
   create_table "story_themes", force: true do |t|
     t.string   "name"

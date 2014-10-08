@@ -1,6 +1,9 @@
 class StoryTheme < ActiveRecord::Base
   # Start external modules declaration
 
+  # Translated fields with globalize and for active admin
+  active_admin_translates :name
+
   # End external modules declaration
 
   # Start constants declaration
@@ -17,7 +20,6 @@ class StoryTheme < ActiveRecord::Base
   # End relations declaration
 
   # Start validations declaration
-
   validates :name, presence: true
   validates :start_age, :end_age, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
 
