@@ -1,10 +1,16 @@
 it:
+  errors:
+    api:
+      not_found: La risorsa data non è stato trovato.
+      forbidden: L'azione richiesta era proibito.
+      bad_request: La data richiesta non è stata come previsto.
+      invalid_resource: La risorsa data non era valido.
   activerecord:
     models:
-      story_context: "Ambiti"
-      story_theme: "Temi"
+      story_context: Ambiti
+      story_theme: Temi
     attributes:
       story_context:
-        name: "Nome"
+        name: Nome
       story_theme:
-        name: "Nome"
+        name: Nome

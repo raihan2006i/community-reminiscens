@@ -4,6 +4,12 @@ Rails.application.routes.draw do
 
   scope ':locale', locale: I18n.locale do
     ActiveAdmin.routes(self)
+
+    namespace :api, defaults: {format: 'json'} do
+      namespace :v1 do
+        resources :story_themes
+      end
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

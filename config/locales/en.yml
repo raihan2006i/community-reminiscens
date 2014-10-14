@@ -20,12 +20,18 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  errors:
+    api:
+      not_found: The given resource could not be found.
+      forbidden: The requested action was forbidden.
+      bad_request: The given request was not as expected.
+      invalid_resource: The given resource was invalid.
   activerecord:
     models:
-      story_context: "Areas"
-      story_theme: "Themes"
+      story_context: Areas
+      story_theme: Themes
     attributes:
       story_context:
-        name: "Name"
+        name: Name
       story_theme:
-        name: "Name"
+        name: Name

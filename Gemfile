@@ -69,3 +69,12 @@ gem 'rails-i18n', '~> 4.0.3'
 
 # Provides translation UI for ActiveAdmin and Globalize gems
 gem 'activeadmin-globalize', github: 'stefanoverna/activeadmin-globalize',  branch: 'master'
+
+# Pagination library for Rails
+gem 'will_paginate', '~> 3.0.7'
+
+# Rails REST API documentation tool
+gem 'apipie-rails', '~> 0.2.6'
+
+# Fast Rails 3+ templating system with JSON, XML and PList support
+gem 'rabl-rails', '~> 0.4.0'

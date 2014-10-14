@@ -1,0 +1,1 @@
+attributes :id, :name, :start_age, :end_age
