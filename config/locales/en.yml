@@ -30,6 +30,7 @@ en:
           errors:
             not_found: Not Found, If resource is not found.
             bad_request: Bad Request, If format of the parameters are wrong.
+            invalid_resource: Invalid Resource, if resource validation failed.
         story_themes:
           common:
             params:
@@ -37,7 +38,7 @@ en:
               start_age: Theme start age
               end_age: Theme end age
           index:
-            short_desc: Returns available themes.
+            short_desc: Returns available story themes.
             full_desc:
             params:
             errors:
@@ -56,6 +57,30 @@ en:
             full_desc:
             params:
             errors:
+        story_contexts:
+          common:
+            params:
+              name: Context name
+          index:
+            short_desc: Returns available story contexts.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a context.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a context.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update a context.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: The given resource could not be found.
       forbidden: The requested action was forbidden.
@@ -63,7 +88,7 @@ en:
       invalid_resource: The given resource was invalid.
   activerecord:
     models:
-      story_context: Areas
+      story_context: Contexts
       story_theme: Themes
     attributes:
       story_context:

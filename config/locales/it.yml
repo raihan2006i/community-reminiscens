@@ -9,6 +9,7 @@ it:
           errors:
             not_found: Non Trovato, se risorsa non viene trovata.
             bad_request: Bad Request, Se il formato dei parametri sono sbagliate.
+            invalid_resource: Risorsa non valido, se la convalida non è riuscita risorsa.
         story_themes:
           common:
             params:
@@ -16,7 +17,7 @@ it:
               start_age: Tema età di inizio
               end_age: Età della fine Theme
           index:
-            short_desc: Restituisce disponibili temi.
+            short_desc: Restituisce temi di storia disponibili.
             full_desc:
             params:
             errors:
@@ -35,6 +36,30 @@ it:
             full_desc:
             params:
             errors:
+        story_contexts:
+          common:
+            params:
+              name: Nome Ambito
+          index:
+            short_desc: Restituisce disponibili contesto storia.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce un contesto.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creare un contesto.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Aggiornare un contesto.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: La risorsa data non è stato trovato.
       forbidden: L'azione richiesta era proibito.
@@ -42,7 +67,7 @@ it:
       invalid_resource: La risorsa data non era valido.
   activerecord:
     models:
-      story_context: Ambiti
+      story_context: Contesti
       story_theme: Temi
     attributes:
       story_context:

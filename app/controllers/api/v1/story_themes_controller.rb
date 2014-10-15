@@ -33,6 +33,9 @@ class Api::V1::StoryThemesController < Api::V1::BaseController
 
   api :POST, '/v1/story_themes', 'api.docs.resources.story_themes.create.short_desc'
   param_group :theme
+  error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
+  error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
+  error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
     @story_theme = StoryTheme.new(permitted_create_params)
     if @story_theme.save
@@ -44,6 +47,9 @@ class Api::V1::StoryThemesController < Api::V1::BaseController
 
   api :PUT, '/v1/story_themes/:id', 'api.docs.resources.story_themes.update.short_desc'
   param_group :theme
+  error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
+  error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
+  error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def update
     if @story_theme.update_attributes(permitted_update_params)
       render action: :show
