@@ -36,27 +36,27 @@ class Api::ApplicationController < ActionController::Base
 
   protected
   rescue_from ActiveRecord::RecordNotFound do |e|
-    render_error!('not_found', I18n.t('errors.api.not_found'), 404, :not_found)
+    render_error!('not_found', I18n.t('api.errors.not_found'), 404, :not_found)
   end
 
   rescue_from CanCan::AccessDenied do |e|
-    render_error!('forbidden', I18n.t('errors.api.forbidden'), 403, :forbidden)
+    render_error!('forbidden', I18n.t('api.errors.forbidden'), 403, :forbidden)
   end
 
   rescue_from ArgumentError do |e|
-    render_error!('bad_request', I18n.t('errors.api.bad_request'), 400, :bad_request)
+    render_error!('bad_request', I18n.t('api.errors.bad_request'), 400, :bad_request)
   end
 
   rescue_from Apipie::ParamError do |e|
-    render_error!('bad_request', I18n.t('errors.api.bad_request'), 400, :bad_request)
+    render_error!('bad_request', I18n.t('api.errors.bad_request'), 400, :bad_request)
   end
 
   rescue_from Apipie::ParamInvalid do |e|
-    render_error!('bad_request', I18n.t('errors.api.bad_request'), 400, :bad_request)
+    render_error!('bad_request', I18n.t('api.errors.bad_request'), 400, :bad_request)
   end
 
   rescue_from Apipie::ParamMissing do |e|
-    render_error!('bad_request', I18n.t('errors.api.bad_request'), 400, :bad_request)
+    render_error!('bad_request', I18n.t('api.errors.bad_request'), 400, :bad_request)
   end
 
   # private

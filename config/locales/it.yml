@@ -1,6 +1,41 @@
 it:
-  errors:
-    api:
+  api:
+    docs:
+      resources:
+        common:
+          params:
+            page: Consente di sfogliare i risultati. Il valore predefinito è 1.
+            per_page: Limitare il numero di risultati restituiti. Il valore predefinito è 10.
+          errors:
+            not_found: Non Trovato, se risorsa non viene trovata.
+            bad_request: Bad Request, Se il formato dei parametri sono sbagliate.
+        story_themes:
+          common:
+            params:
+              name: Nome Tema
+              start_age: Tema età di inizio
+              end_age: Età della fine Theme
+          index:
+            short_desc: Restituisce disponibili temi.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce un tema.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creare un tema.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Aggiornare un tema.
+            full_desc:
+            params:
+            errors:
+    errors:
       not_found: La risorsa data non è stato trovato.
       forbidden: L'azione richiesta era proibito.
       bad_request: La data richiesta non è stata come previsto.

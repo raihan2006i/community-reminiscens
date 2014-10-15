@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
+  apipie
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users
 
-  scope ':locale', locale: I18n.locale do
-    ActiveAdmin.routes(self)
-
-    namespace :api, defaults: {format: 'json'} do
-      namespace :v1 do
-        resources :story_themes
-      end
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :story_themes
     end
   end
+
+  scope ':locale', locale: I18n.locale do
+    ActiveAdmin.routes(self)
+  end
+
+  root to: redirect('/apidoc/1.en.html')
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
