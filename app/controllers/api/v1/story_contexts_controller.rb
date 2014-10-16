@@ -3,13 +3,17 @@ class Api::V1::StoryContextsController < Api::V1::BaseController
   respond_to :json
 
   resource_description do
-    short 'activerecord.models.story_context'
+    short 'api.docs.resources.story_contexts.short_desc'
     path '/v1/story_contexts'
     formats ['json']
     api_versions '1'
   end
 
-  def_param_group :context do
+  def_param_group :create_context do
+    param :name, :string, desc: 'api.docs.resources.story_contexts.common.params.name', required: true
+  end
+
+  def_param_group :update_context do
     param :name, :string, desc: 'api.docs.resources.story_contexts.common.params.name', required: false
   end
 
@@ -30,7 +34,7 @@ class Api::V1::StoryContextsController < Api::V1::BaseController
   end
 
   api :POST, '/v1/story_contexts', 'api.docs.resources.story_contexts.create.short_desc'
-  param_group :context
+  param_group :create_context
   error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
@@ -44,7 +48,7 @@ class Api::V1::StoryContextsController < Api::V1::BaseController
   end
 
   api :PUT, '/v1/story_contexts/:id', 'api.docs.resources.story_contexts.update.short_desc'
-  param_group :context
+  param_group :update_context
   error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')

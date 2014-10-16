@@ -32,6 +32,7 @@ en:
             bad_request: Bad Request, If format of the parameters are wrong.
             invalid_resource: Invalid Resource, if resource validation failed.
         story_themes:
+          short_desc: Themes
           common:
             params:
               name: Theme name
@@ -58,6 +59,7 @@ en:
             params:
             errors:
         story_contexts:
+          short_desc: Contexts
           common:
             params:
               name: Context name
@@ -78,6 +80,39 @@ en:
             errors:
           update:
             short_desc: Update a context.
+            full_desc:
+            params:
+            errors:
+        guests:
+          short_desc: Guests
+          common:
+            params:
+              first_name: Guest's first name
+              last_name: Guest's last name
+              title: Guest's title
+              birthday: Guest's birthday in YYYY-MM-DD format
+              address: Guest's address
+              city: Guest's city
+              country: Guest's country
+              phone: Guest's phone
+              mobile: Guest's mobile
+          index:
+            short_desc: Returns available guests.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a guest.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a guest.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update a guest.
             full_desc:
             params:
             errors:

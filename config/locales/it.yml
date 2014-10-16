@@ -60,6 +60,39 @@ it:
             full_desc:
             params:
             errors:
+        guests:
+          short_desc: Ospiti
+          common:
+            params:
+              first_name: Nome del ospite
+              last_name: Cognome del ospite
+              title: Titolo di ospite
+              birthday: Compleanno di ospite nel formato YYYY-MM-DD formato
+              address: Indirizzo di ospite
+              city: Città di ospite
+              country: Paese del ospite
+              phone: Telefono di ospite
+              mobile: Cellulare di ospite
+          index:
+            short_desc: Restituisce ospiti disponibili.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce un ospite.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creare un ospite.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Aggiornare un ospite.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: La risorsa data non è stato trovato.
       forbidden: L'azione richiesta era proibito.

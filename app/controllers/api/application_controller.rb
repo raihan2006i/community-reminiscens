@@ -44,19 +44,19 @@ class Api::ApplicationController < ActionController::Base
   end
 
   rescue_from ArgumentError do |e|
-    render_error!('bad_request', I18n.t('api.errors.bad_request'), 400, :bad_request)
+    render_error!('bad_request', e.message, 400, :bad_request)
   end
 
   rescue_from Apipie::ParamError do |e|
-    render_error!('bad_request', I18n.t('api.errors.bad_request'), 400, :bad_request)
+    render_error!('bad_request', e.message, 400, :bad_request)
   end
 
   rescue_from Apipie::ParamInvalid do |e|
-    render_error!('bad_request', I18n.t('api.errors.bad_request'), 400, :bad_request)
+    render_error!('bad_request', e.message, 400, :bad_request)
   end
 
   rescue_from Apipie::ParamMissing do |e|
-    render_error!('bad_request', I18n.t('api.errors.bad_request'), 400, :bad_request)
+    render_error!('bad_request', e.message, 400, :bad_request)
   end
 
   # private

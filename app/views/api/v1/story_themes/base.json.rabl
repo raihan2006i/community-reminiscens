@@ -1,1 +1,1 @@
-attributes :id, :name, :start_age, :end_age
+attributes :id, :name, :start_age, :end_age, :created_at, :updated_at

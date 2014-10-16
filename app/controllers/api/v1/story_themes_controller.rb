@@ -3,16 +3,25 @@ class Api::V1::StoryThemesController < Api::V1::BaseController
   respond_to :json
 
   resource_description do
-    short 'activerecord.models.story_theme'
+    short 'api.docs.resources.story_themes.short_desc'
     path '/v1/story_themes'
     formats ['json']
     api_versions '1'
   end
 
-  def_param_group :theme do
-    param :name, :string, desc: 'api.docs.resources.story_themes.common.params.name', required: false
+  def_param_group :common do
     param :start_age, :number, desc: 'api.docs.resources.story_themes.common.params.start_age', required: false
     param :end_age, :number, desc: 'api.docs.resources.story_themes.common.params.end_age', required: false
+  end
+
+  def_param_group :create_theme do
+    param :name, :string, desc: 'api.docs.resources.story_themes.common.params.name', required: true
+    param_group :common
+  end
+
+  def_param_group :update_theme do
+    param :name, :string, desc: 'api.docs.resources.story_themes.common.params.name', required: false
+    param_group :common
   end
 
   def_param_group :pagination do
@@ -32,7 +41,7 @@ class Api::V1::StoryThemesController < Api::V1::BaseController
   end
 
   api :POST, '/v1/story_themes', 'api.docs.resources.story_themes.create.short_desc'
-  param_group :theme
+  param_group :create_theme
   error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
@@ -46,7 +55,7 @@ class Api::V1::StoryThemesController < Api::V1::BaseController
   end
 
   api :PUT, '/v1/story_themes/:id', 'api.docs.resources.story_themes.update.short_desc'
-  param_group :theme
+  param_group :update_theme
   error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
