@@ -55,6 +55,7 @@ class Api::V1::StoryThemesController < Api::V1::BaseController
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
     @story_theme = StoryTheme.new(permitted_create_params)
+    @story_theme.creator = current_user
     if @story_theme.save
       render action: :show
     else
