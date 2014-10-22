@@ -93,11 +93,48 @@ it:
             full_desc:
             params:
             errors:
+        caregivers:
+          short_desc: Caregivers
+          common:
+            params:
+              first_name: Nome del Caregiver
+              last_name: Cognome del Caregiver
+              title: Titolo del Caregiver
+              birthday: Compleanno di Caregiver nel formato YYYY-MM-DD formato
+              address: Indirizzo del Caregiver
+              city: Città del Caregiver
+              country: Paese del Caregiver
+              phone: Telefono di Caregiver
+              mobile: Mobile di Caregiver
+              email: E-mail del Caregiver
+              password: Password di Caregiver di login nel sistema
+              password_confirmation: Conferma password
+          index:
+            short_desc: Restituisce caregivers disponibili.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce un caregiver.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creare un caregiver.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Aggiornare un caregiver.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: La risorsa data non è stato trovato.
       forbidden: L'azione richiesta era proibito.
       bad_request: La data richiesta non è stata come previsto.
       invalid_resource: La risorsa data non era valido.
+      unauthorized: La data richiesta non è autorizzato.
   activerecord:
     models:
       story_context: Contesti

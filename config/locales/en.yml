@@ -116,11 +116,48 @@ en:
             full_desc:
             params:
             errors:
+        caregivers:
+          short_desc: Caregivers
+          common:
+            params:
+              first_name: Caregiver's first name
+              last_name: Caregiver's last name
+              title: Caregiver's title
+              birthday: Caregiver's birthday in YYYY-MM-DD format
+              address: Caregiver's address
+              city: Caregiver's city
+              country: Caregiver's country
+              phone: Caregiver's phone
+              mobile: Caregiver's mobile
+              email: Caregiver's email
+              password: Caregiver's password to login in the system
+              password_confirmation: Password confirmation
+          index:
+            short_desc: Returns available caregivers.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a caregiver.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a caregiver.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update a caregiver.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: The given resource could not be found.
       forbidden: The requested action was forbidden.
       bad_request: The given request was not as expected.
       invalid_resource: The given resource was invalid.
+      unauthorized: The given request is unauthorized.
   activerecord:
     models:
       story_context: Contexts

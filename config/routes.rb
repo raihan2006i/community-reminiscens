@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :story_themes
       resources :story_contexts
       resources :guests
+      resources :caregivers
     end
   end
 

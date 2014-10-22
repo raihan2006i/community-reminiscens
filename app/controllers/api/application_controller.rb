@@ -18,29 +18,20 @@ class Api::ApplicationController < ActionController::Base
     }.to_json, status: status
   end
 
-  # def error(status, code, message)
-  #   render json: {error: {code: code, message: message}}.to_json, status: status
-  # end
-  #
-  # def success(message)
-  #   render json: {success: {code: 200, message: message}}.to_json, status: :ok
-  # end
-  #
-  # def current_user
-  #   @current_user
-  # end
-  #
-  # def access_granted?
-  #   @access_granted == true
-  # end
+  def current_user
+    @current_user
+  end
 
-  protected
+  def access_granted?
+    @access_granted == true
+  end
+
   rescue_from ActiveRecord::RecordNotFound do |e|
     render_error!('not_found', I18n.t('api.errors.not_found'), 404, :not_found)
   end
 
   rescue_from CanCan::AccessDenied do |e|
-    render_error!('forbidden', I18n.t('api.errors.forbidden'), 403, :forbidden)
+    render_error!('unauthorized', I18n.t('api.errors.unauthorized'), 401, :unauthorized)
   end
 
   rescue_from ArgumentError do |e|
@@ -59,13 +50,13 @@ class Api::ApplicationController < ActionController::Base
     render_error!('bad_request', e.message, 400, :bad_request)
   end
 
-  # private
-  # def restrict_api_access
-  #   unless access_granted?
-  #     error(:unauthorized, 401, "Unauthorized")
-  #   end
-  # end
-  #
+  private
+  def restrict_api_access
+    unless access_granted?
+      render_error!('forbidden', I18n.t('api.errors.forbidden'), 403, :forbidden)
+    end
+  end
+
   # def authorize_api_access
   #   authenticate_or_request_with_http_token do |token, options|
   #     @access_granted = false
@@ -86,30 +77,35 @@ class Api::ApplicationController < ActionController::Base
   # end
 
   # REF https://gist.github.com/josevalim/fb706b1e933ef01e4fb6#file-2_safe_token_authentication-rb-L14
-  # def authorize_user_access
-  #   authenticate_or_request_with_http_token do |token, options|
-  #     @access_granted = false
-  #     @current_user = nil
-  #     begin
-  #       if token.present?
-  #         # Token format in http header will be
-  #         # id:authentication_token
-  #         user_id_and_token = token.split(":")
-  #         user_id = user_id_and_token.first
-  #         authentication_token = user_id_and_token.last
-  #         user = user_id && User.find(user_id)
-  #
-  #         # Notice how we use Devise.secure_compare to compare the token
-  #         # in the database with the token given in the params, mitigating
-  #         # timing attacks.
-  #         if user && Devise.secure_compare(user.authentication_token, authentication_token)
-  #           @current_user = user
-  #           @access_granted = true
-  #         end
-  #       end
-  #     rescue => e
-  #     end
-  #     true
-  #   end
-  # end
+  def authorize_user_access
+    authenticate_or_request_with_http_token do |token, options|
+      @access_granted = false
+      @current_user = nil
+      begin
+        if token.present?
+          user = User.find_by(authentication_token: token)
+
+          # Notice how we use Devise.secure_compare to compare the token
+          # in the database with the token given in the params, mitigating
+          # timing attacks.
+          if user && Devise.secure_compare(user.authentication_token, token)
+            @current_user = user
+            @access_granted = true
+          end
+        end
+      rescue => e
+      end
+      true
+    end
+  end
+
+  def request_http_token_authentication(realm = "Application")
+    self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
+    self.__send__ :render, json: {
+        error: 'forbidden',
+        error_description: I18n.t('api.errors.forbidden'),
+        code: 403,
+        messages: []
+    }.to_json, status: :forbidden
+  end
 end

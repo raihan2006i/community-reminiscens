@@ -1,5 +1,13 @@
 class Api::V1::StoryThemesController < Api::V1::BaseController
+  # First we need to authorize_user_access
+  before_filter :authorize_user_access
+  # Then we will check access_granted? and will response accordingly
+  before_filter :restrict_api_access
+
   before_action :set_story_theme, only: [:show, :update]
+
+  authorize_resource
+
   respond_to :json
 
   resource_description do

@@ -1,5 +1,13 @@
 class Api::V1::GuestsController < Api::V1::BaseController
+  # First we need to authorize_user_access
+  before_filter :authorize_user_access
+  # Then we will check access_granted? and will response accordingly
+  before_filter :restrict_api_access
+
   before_action :set_guest, only: [:show, :update]
+
+  authorize_resource :person
+
   respond_to :json
 
   resource_description do
@@ -54,7 +62,7 @@ class Api::V1::GuestsController < Api::V1::BaseController
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
     @guest = Person.create_guest(permitted_create_params)
-    if @guest.valid? && @guest.persisted?
+    if @guest.persisted?
       render action: :show
     else
       render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @guest.errors)
