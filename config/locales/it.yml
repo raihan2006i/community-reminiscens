@@ -11,6 +11,7 @@ it:
             bad_request: Bad Request, Se il formato dei parametri sono sbagliate.
             invalid_resource: Risorsa non valido, se la convalida non è riuscita risorsa.
         story_themes:
+          short_desc: Temi
           common:
             params:
               name: Nome Tema
@@ -37,6 +38,7 @@ it:
             params:
             errors:
         story_contexts:
+          short_desc: Contesti
           common:
             params:
               name: Nome Ambito
@@ -129,6 +131,43 @@ it:
             full_desc:
             params:
             errors:
+        groups:
+          short_desc: Gruppi
+          common:
+            params:
+              name: Nome del gruppo
+              manager_id: Responsabile id del gruppo. manager_id dovrebbe essere un id Persona
+          index:
+            short_desc: Restituisce i gruppi disponibili.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce un gruppo.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creare un gruppo.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Aggiornare un gruppo.
+            full_desc:
+            params:
+            errors:
+          guests:
+            short_desc: Restituisce ospiti di un gruppo.
+            full_desc:
+            params:
+            errors:
+          register_a_person:
+            short_desc: Registrare una persona sotto un gruppo. La persona dovrebbe essere un ospite
+            full_desc:
+            params:
+              person_id: id di una persona. La persona deve essere un ospite, altrimenti questo metodo API restituisce errore 422 Invalid risorse come JSON
+            errors:
     errors:
       not_found: La risorsa data non è stato trovato.
       forbidden: L'azione richiesta era proibito.
@@ -136,6 +175,9 @@ it:
       invalid_resource: La risorsa data non era valido.
       unauthorized: La data richiesta non è autorizzato.
   activerecord:
+    errors:
+      not_a_guest: non è un ospite
+      not_a_caregiver: non è una badante
     models:
       story_context: Contesti
       story_theme: Temi

@@ -24,7 +24,11 @@ class Person < ActiveRecord::Base
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  # Caregiver is belongs to a +User+ object
+
+  # A Guest is belongs to a +Group+ object
+  belongs_to :group, inverse_of: :guests
+
+  # A Caregiver is belongs to a +User+ object
   # This +User+ object is for sign-in in the system
   belongs_to :user, inverse_of: :person
 
@@ -39,6 +43,7 @@ class Person < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   validates :first_name, :last_name, presence: true
+  validate :group_validator
   #
   # End validations declaration
 
@@ -102,6 +107,22 @@ class Person < ActiveRecord::Base
   end
   #
   # End class method declaration
+
+  # Protected methods
+  # Please try to maintain alphabetical order
+  protected
+  #
+
+  # This method must be registered by the rails validate class method
+  # To check whether a group can be assigned to the +person+
+  # If +person+ is not a guest then add :not_a_guest error on :base
+  def group_validator
+    if group.present? && !is_guest?
+      errors.add(:base, I18n.t(:not_a_guest, scope: [:activerecord, :errors]))
+    end
+  end
+  #
+  # End protected methods
 
   # Private methods
   # Please try to maintain alphabetical order

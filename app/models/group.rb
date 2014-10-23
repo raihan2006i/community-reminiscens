@@ -22,17 +22,21 @@ class Group < ActiveRecord::Base
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
+
   belongs_to :creator, polymorphic: true
+
+  # Manager is a +Person+ who has caregiver role
   belongs_to :manager, class_name: 'Person', foreign_key: 'manager_id'
 
-  has_many :persons
+  has_many :guests, class_name: 'Person', inverse_of: :group
   #
   # End relations declaration
 
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  validates :name, :manager, presence: true
+  validate :manager_is_caregiver_validator
   #
   # End validations declaration
 
@@ -46,9 +50,25 @@ class Group < ActiveRecord::Base
   # Start class method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  #
   #
   # End class method declaration
+
+  # Protected methods
+  # Please try to maintain alphabetical order
+  protected
+  #
+
+  # This method must be registered by the rails validate class method
+  # To check whether manager is a caregiver
+  # If manager is not a caregiver then add :not_a_caregiver error on :manager attribute
+  def manager_is_caregiver_validator
+    if manager.present? && !manager.is_caregiver?
+      errors.add(:manager, I18n.t(:not_a_caregiver, scope: [:activerecord, :errors]))
+    end
+  end
+  #
+  # End protected methods
 
   # Private methods
   # Please try to maintain alphabetical order

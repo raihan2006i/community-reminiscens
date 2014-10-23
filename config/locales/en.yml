@@ -152,6 +152,43 @@ en:
             full_desc:
             params:
             errors:
+        groups:
+          short_desc: Groups
+          common:
+            params:
+              name: Name of the group
+              manager_id: Manager id of the group. manager_id should be a Person id
+          index:
+            short_desc: Returns available groups.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a group.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a group.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update a group.
+            full_desc:
+            params:
+            errors:
+          guests:
+            short_desc: Returns guests of a group.
+            full_desc:
+            params:
+            errors:
+          register_a_person:
+            short_desc: Register a person under a group. The person should be a guest
+            full_desc:
+            params:
+              person_id: id of a person. The person should be a guest, otherwise this api method will return 422 Invalid Resource error as json
+            errors:
     errors:
       not_found: The given resource could not be found.
       forbidden: The requested action was forbidden.
@@ -159,6 +196,9 @@ en:
       invalid_resource: The given resource was invalid.
       unauthorized: The given request is unauthorized.
   activerecord:
+    errors:
+      not_a_guest: is not a guest
+      not_a_caregiver: is not a caregiver
     models:
       story_context: Contexts
       story_theme: Themes

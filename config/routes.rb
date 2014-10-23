@@ -5,10 +5,16 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      resources :story_themes
-      resources :story_contexts
-      resources :guests
       resources :caregivers
+      resources :groups do
+        member do
+          get :guests
+          post :guests, to: 'groups#register_a_person'
+        end
+      end
+      resources :guests
+      resources :story_contexts
+      resources :story_themes
     end
   end
 
