@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: reminiscens_development
+  username: developer
+  password: secret
+
+test:
+  <<: *default
+  database: reminiscens_test
+  username: developer
+  password: secret
+
+production:
+  <<: *default
+  database: reminiscens_production
+  username: reminiscens
+  password: <%= ENV['REMINISCENS_DATABASE_PASSWORD'] %>
