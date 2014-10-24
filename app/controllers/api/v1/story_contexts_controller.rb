@@ -48,7 +48,7 @@ class Api::V1::StoryContextsController < Api::V1::BaseController
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
     @story_context = StoryContext.new(permitted_create_params)
-    @story_context.creator = current_user
+    @story_context.creator = current_user.try(:person)
     if @story_context.save
       render action: :show
     else

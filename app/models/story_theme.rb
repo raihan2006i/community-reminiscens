@@ -16,7 +16,9 @@ class StoryTheme < ActiveRecord::Base
   # Start constants declaration
   # Please try to maintain alphabetical order
   #
-  SOURCES = %w(predefined contributed)
+  SOURCE_CONTRIBUTED = 'contributed'
+  SOURCE_PREDEFINED = 'predefined'
+  SOURCES = %W(#{SOURCE_CONTRIBUTED} #{SOURCE_PREDEFINED})
   #
   # End constants declaration
 

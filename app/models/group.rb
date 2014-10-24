@@ -40,6 +40,13 @@ class Group < ActiveRecord::Base
   #
   # End validations declaration
 
+  # Start callbacks declaration
+  # Please try to maintain alphabetical order
+  #
+  # Remove this line and start writing your code here
+  #
+  # End callbacks declaration
+
   # Start instance method declaration
   # Please try to maintain alphabetical order
   #

@@ -30,7 +30,7 @@ class StoryFragment < ActiveRecord::Base
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  validates :content, presence: true
   #
   # End validations declaration
 

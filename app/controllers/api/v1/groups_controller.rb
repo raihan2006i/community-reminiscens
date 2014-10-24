@@ -17,18 +17,14 @@ class Api::V1::GroupsController < Api::V1::BaseController
     api_versions '1'
   end
 
-  def_param_group :common do
-    param :manager_id, :number, desc: 'api.docs.resources.groups.common.params.manager_id', required: false
-  end
-
   def_param_group :create_group do
     param :name, :string, desc: 'api.docs.resources.groups.common.params.name', required: true
-    param_group :common
+    param :manager_id, :number, desc: 'api.docs.resources.groups.common.params.manager_id', required: true
   end
 
   def_param_group :update_group do
     param :name, :string, desc: 'api.docs.resources.groups.common.params.name', required: false
-    param_group :common
+    param :manager_id, :number, desc: 'api.docs.resources.groups.common.params.manager_id', required: false
   end
 
   def_param_group :pagination do
@@ -40,7 +36,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
   param_group :pagination
   error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
   def index
-    @groups = Group.paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
+    @groups = Group.includes(:manager).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end
 
   api :GET, '/v1/groups/:id', 'api.docs.resources.groups.show.short_desc'
@@ -54,7 +50,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
     @group = Group.new(permitted_create_params)
-    @group.creator = current_user
+    @group.creator = current_user.try(:person)
     if @group.save
       render action: :show
     else

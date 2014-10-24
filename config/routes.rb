@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         end
       end
       resources :guests
+      resources :stories
       resources :story_contexts
       resources :story_themes
     end
