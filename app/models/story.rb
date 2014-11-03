@@ -85,19 +85,29 @@ class Story < ActiveRecord::Base
   # This method must be registered by the rails validate class method
   def prepare_nested_attributes
     if other_story_context.present?
-      self.story_context_attributes = {
-          name: other_story_context,
-          creator: creator,
-          source: StoryContext::SOURCE_CONTRIBUTED
-      }
+      story_context = StoryContext.case_insensitive_filter_by_name(other_story_context).first
+      if story_context.present?
+        self.story_context = story_context
+      else
+        self.story_context_attributes = {
+            name: other_story_context,
+            creator: creator,
+            source: StoryContext::SOURCE_CONTRIBUTED
+        }
+      end
     end
 
     if other_story_theme.present?
-      self.story_theme_attributes =  {
-          name: other_story_theme,
-          creator: creator,
-          source: StoryTheme::SOURCE_CONTRIBUTED
-      }
+      story_theme = StoryTheme.case_insensitive_filter_by_name(other_story_context).first
+      if story_theme.present?
+        self.story_theme = story_theme
+      else
+        self.story_theme_attributes =  {
+            name: other_story_theme,
+            creator: creator,
+            source: StoryTheme::SOURCE_CONTRIBUTED
+        }
+      end
     end
   end
 

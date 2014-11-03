@@ -1,6 +1,7 @@
 class StoryTheme < ActiveRecord::Base
   # Start external modules declaration
   #
+  include NameFilters
   # Translated fields with globalize and for active admin
   active_admin_translates :name
   #
