@@ -36,7 +36,7 @@ class Group < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   validates :name, :manager, presence: true
-  validate :manager_is_caregiver_validator
+  validate :validator_manager_is_caregiver
   #
   # End validations declaration
 
@@ -69,7 +69,7 @@ class Group < ActiveRecord::Base
   # This method must be registered by the rails validate class method
   # To check whether manager is a caregiver
   # If manager is not a caregiver then add :not_a_caregiver error on :manager attribute
-  def manager_is_caregiver_validator
+  def validator_manager_is_caregiver
     if manager.present? && !manager.is_caregiver?
       errors.add(:manager, I18n.t(:not_a_caregiver, scope: [:activerecord, :errors]))
     end

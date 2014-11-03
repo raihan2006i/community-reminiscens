@@ -41,7 +41,7 @@ class Story < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   validates :story_context, :story_theme, :teller, :story_fragment, presence: true
-  validate :teller_is_guest_validator
+  validate :validator_teller_is_guest
   #
   # End validations declaration
 
@@ -104,7 +104,7 @@ class Story < ActiveRecord::Base
   # This method must be registered by the rails validate class method
   # To check whether manager is a caregiver
   # If manager is not a caregiver then add :not_a_caregiver error on :manager attribute
-  def teller_is_guest_validator
+  def validator_teller_is_guest
     if teller.present? && !teller.is_guest?
       errors.add(:teller, I18n.t(:not_a_guest, scope: [:activerecord, :errors]))
     end
