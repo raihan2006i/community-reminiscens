@@ -196,6 +196,62 @@ en:
             params:
               person_id: id of a person. The person should be a guest, otherwise this api method will return 422 Invalid Resource error as json
             errors:
+        stories:
+          short_desc: Stories
+          common:
+            params:
+              story_theme_id: Theme id of the story
+              story_context_id: Context id of the story
+              other_story_theme: Theme name of the story. If a story theme is not available in the system use this param
+              other_story_context: Context name of the story. If a story context is not available in the system use this param
+              story_fragment: Fragment or content of the story
+              teller_id: Teller id of the story. Teller id is a Guest id
+              telling_date: When the story was told by Guest. Telling date should be in YYYY-MM-DD format
+          index:
+            short_desc: Returns available stories.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a story.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a story.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update a story.
+            full_desc:
+            params:
+            errors:
+        story_fragments:
+          short_desc: Fragments
+          common:
+            params:
+              content: Content of the fragment
+          index:
+            short_desc: Returns available fragments of a story.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a fragment of a story.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a fragment of a story.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update a fragment of a story.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: The given resource could not be found.
       forbidden: The requested action was forbidden.
@@ -209,8 +265,11 @@ en:
     models:
       story_context: Contexts
       story_theme: Themes
+      story_fragments: Fragments
     attributes:
       story_context:
         name: Name
       story_theme:
         name: Name
+      story_fragment:
+        content: Content

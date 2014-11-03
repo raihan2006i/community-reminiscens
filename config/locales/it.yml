@@ -175,6 +175,62 @@ it:
             params:
               person_id: id di una persona. La persona deve essere un ospite, altrimenti questo metodo API restituisce errore 422 Invalid risorse come JSON
             errors:
+        stories:
+          short_desc: Stories
+          common:
+            params:
+              story_theme_id: Id tema della storia
+              story_context_id: Contesto id della storia
+              other_story_theme: Nome del tema della storia. Se un tema storia non è disponibile nel sistema di questa param
+              other_story_context: Nome del contesto della storia. Se un contesto storia non è disponibile nel sistema di questa param
+              story_fragment: Frammento o il contenuto della storia
+              teller_id: Teller id della storia. Teller id è un id Ospite
+              telling_date: Quando la storia è stata raccontata da Guest. Data raccontare dovrebbe essere nel formato AAAA-MM-GG formato
+          index:
+            short_desc: Restituisce storie disponibili.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce una storia.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creare una storia.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Aggiornare una storia.
+            full_desc:
+            params:
+            errors:
+        story_fragments:
+          short_desc: Frammenti
+          common:
+            params:
+              content: Contenuto del frammento
+          index:
+            short_desc: Restituisce frammenti a disposizione di una storia.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce un frammento di una storia.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creazione di un frammento di una storia.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Aggiornare un frammento di una storia.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: La risorsa data non è stato trovato.
       forbidden: L'azione richiesta era proibito.
@@ -193,3 +249,5 @@ it:
         name: Nome
       story_theme:
         name: Nome
+      story_fragment:
+        content: contenuto

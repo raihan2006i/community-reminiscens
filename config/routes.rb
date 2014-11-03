@@ -17,7 +17,9 @@ Rails.application.routes.draw do
         end
       end
       resources :guests
-      resources :stories
+      resources :stories do
+        resources :story_fragments
+      end
       resources :story_contexts
       resources :story_themes
     end
