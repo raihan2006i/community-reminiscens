@@ -57,25 +57,6 @@ class Api::ApplicationController < ActionController::Base
     end
   end
 
-  # def authorize_api_access
-  #   authenticate_or_request_with_http_token do |token, options|
-  #     @access_granted = false
-  #     @api_token = nil
-  #     if token.present?
-  #       api_token = ApiToken.where(token: token).first
-  #
-  #       # Notice how we use Devise.secure_compare to compare the token
-  #       # in the database with the token given in the params, mitigating
-  #       # timing attacks.
-  #       if api_token && Devise.secure_compare(api_token.token, token)
-  #         @api_token = api_token
-  #         @access_granted = true
-  #       end
-  #     end
-  #     true
-  #   end
-  # end
-
   # REF https://gist.github.com/josevalim/fb706b1e933ef01e4fb6#file-2_safe_token_authentication-rb-L14
   def authorize_user_access
     authenticate_or_request_with_http_token do |token, options|
