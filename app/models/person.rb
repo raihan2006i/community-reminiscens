@@ -8,7 +8,10 @@ class Person < ActiveRecord::Base
   # Start attributes reader/writer declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  # These are for Caregivers
+  # These attributes will be used in forms
+  # To create +User+ object while creating a Caregiver
+  attr_accessor :email, :password, :password_confirmation
   #
   # End attributes reader/writer declaration
 
@@ -30,7 +33,7 @@ class Person < ActiveRecord::Base
 
   # A Caregiver is belongs to a +User+ object
   # This +User+ object is for sign-in in the system
-  belongs_to :user, inverse_of: :person
+  belongs_to :user, inverse_of: :person, dependent: :destroy
 
   # has_many :created_groups, class_name: 'Group', foreign_key: 'creator_id'
   # has_many :created_stories, class_name: 'Story', foreign_key: 'creator_id'
@@ -59,12 +62,12 @@ class Person < ActiveRecord::Base
   #
   # Returns true if the record has caregiver +Role+, otherwise returns false
   def is_caregiver?
-    has_role? :caregiver
+    has_role? ROLE_CAREGIVER
   end
 
   # Returns true if the record has guest +Role+, otherwise returns false
   def is_guest?
-    has_role? :guest
+    has_role? ROLE_GUEST
   end
   #
   # End instance method declaration
@@ -72,6 +75,10 @@ class Person < ActiveRecord::Base
   # Start class method declaration
   # Please try to maintain alphabetical order
   #
+
+  scope :caregivers, -> { with_role(ROLE_CAREGIVER) }
+  scope :guests, -> { with_role(ROLE_GUEST) }
+
   # Create a +Person+ record with caregiver role for given +attributes+ and +user_attributes+
   # If given +attributes+ are not valid record will not be stored in database
   # Returns a +Person+ record
@@ -90,7 +97,6 @@ class Person < ActiveRecord::Base
         end
       end
     end
-    p caregiver.errors.messages
     caregiver
   end
 
@@ -104,6 +110,21 @@ class Person < ActiveRecord::Base
       guest.add_role ROLE_GUEST
     end
     guest
+  end
+
+  def self.update_caregiver(caregiver, attributes, user_attributes)
+    if user_attributes[:password].blank?
+      user_attributes.delete('password')
+      user_attributes.delete('password_confirmation')
+    end
+    caregiver.update_attributes(attributes)
+    caregiver.user.update_attributes(user_attributes)
+    caregiver.user.errors.messages.each do |key, values|
+      values.each do |value|
+        caregiver.errors.add(key, value)
+      end
+    end
+    caregiver
   end
   #
   # End class method declaration
