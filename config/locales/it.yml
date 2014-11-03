@@ -111,6 +111,13 @@ it:
               email: E-mail del Caregiver
               password: Password di Caregiver di login nel sistema
               password_confirmation: Conferma password
+          authorize:
+            short_desc: Autorizza un caregiver.
+            full_desc:
+            params:
+              email: Email del Caregiver
+              password: La password del Caregiver
+            errors:
           index:
             short_desc: Restituisce caregivers disponibili.
             full_desc:

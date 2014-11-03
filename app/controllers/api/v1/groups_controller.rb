@@ -34,7 +34,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   api :GET, '/v1/groups', 'api.docs.resources.groups.index.short_desc'
   param_group :pagination
-  error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
+  error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   def index
     @groups = Group.includes(:manager).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end
@@ -73,7 +73,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   api :GET, '/v1/groups/:id/guests', 'api.docs.resources.groups.guests.short_desc'
   param_group :pagination
-  error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
+  error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   def guests
     @guests = @group.guests.paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
     render 'api/v1/guests/index'

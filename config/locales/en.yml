@@ -132,6 +132,13 @@ en:
               email: Caregiver's email
               password: Caregiver's password to login in the system
               password_confirmation: Password confirmation
+          authorize:
+            short_desc: Authorizes a caregiver.
+            full_desc:
+            params:
+              email: Caregiver's email
+              password: Caregiver's password
+            errors:
           index:
             short_desc: Returns available caregivers.
             full_desc:

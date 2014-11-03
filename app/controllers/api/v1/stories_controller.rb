@@ -44,7 +44,7 @@ class Api::V1::StoriesController < Api::V1::BaseController
 
   api :GET, '/v1/stories', 'api.docs.resources.stories.index.short_desc'
   param_group :pagination
-  error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
+  error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   def index
     @stories = Story.includes(:creator, :story_context, :story_theme, :teller).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end

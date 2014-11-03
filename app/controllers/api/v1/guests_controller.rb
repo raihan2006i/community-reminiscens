@@ -46,7 +46,7 @@ class Api::V1::GuestsController < Api::V1::BaseController
 
   api :GET, '/v1/guests', 'api.docs.resources.guests.index.short_desc'
   param_group :pagination
-  error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
+  error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   def index
     @guests = Person.with_role(:guest).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end

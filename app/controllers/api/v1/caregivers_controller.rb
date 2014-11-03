@@ -1,6 +1,6 @@
 class Api::V1::CaregiversController < Api::V1::BaseController
   # First we need to authorize_user_access
-  before_filter :authorize_user_access
+  before_filter :authorize_user_access, except: [ :a ]
   # Then we will check access_granted? and will response accordingly
   before_filter :restrict_api_access
 
@@ -47,6 +47,19 @@ class Api::V1::CaregiversController < Api::V1::BaseController
     param :per_page, :number, desc: 'api.docs.resources.common.params.per_page', required: false
   end
 
+  api :POST, '/v1/caregivers/authorize', 'api.docs.resources.caregivers.authorize.short_desc'
+  param :email, :string, desc: 'api.docs.resources.caregivers.authorize.params.email', required: true
+  param :password, :string, desc: 'api.docs.resources.caregivers.authorize.params.password', required: true
+  error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
+  def authorize
+    @user = User.find_by!(email: params[:email])
+    if @user && @user.valid_password?(params[:password])
+      render
+    else
+      raise ActiveRecord::RecordNotFound
+    end
+  end
+
   api :GET, '/v1/caregivers', 'api.docs.resources.caregivers.index.short_desc'
   param_group :pagination
   error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
@@ -64,8 +77,7 @@ class Api::V1::CaregiversController < Api::V1::BaseController
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
-    user_attributes = permitted_create_user_params
-    @caregiver = Person.create_caregiver(permitted_create_params, user_attributes)
+    @caregiver = Person.create_caregiver(permitted_create_params, permitted_create_user_params)
     if @caregiver.persisted?
       render action: :show
     else
