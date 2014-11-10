@@ -6,7 +6,7 @@ class Api::V1::CaregiversController < Api::V1::BaseController
 
   before_action :set_caregiver, only: [:show, :update]
 
-  authorize_resource :person
+  authorize_resource :caregiver
 
   respond_to :json
 
@@ -39,6 +39,9 @@ class Api::V1::CaregiversController < Api::V1::BaseController
   def_param_group :update_caregiver do
     param :first_name, :string, desc: 'api.docs.resources.caregivers.common.params.first_name', required: false
     param :last_name, :string, desc: 'api.docs.resources.caregivers.common.params.last_name', required: false
+    param :email, :string, desc: 'api.docs.resources.caregivers.common.params.email', required: false
+    param :password, :string, desc: 'api.docs.resources.caregivers.common.params.password', required: false
+    param :password_confirmation, :string, desc: 'api.docs.resources.caregivers.common.params.password_confirmation', required: false
     param_group :common
   end
 
@@ -51,24 +54,21 @@ class Api::V1::CaregiversController < Api::V1::BaseController
   param :email, :string, desc: 'api.docs.resources.caregivers.authorize.params.email', required: true
   param :password, :string, desc: 'api.docs.resources.caregivers.authorize.params.password', required: true
   error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
+  error code: 404, desc: 'api.docs.resources.common.errors.not_found'
   def authorize
-    @user = User.find_by!(email: params[:email])
-    if @user && @user.valid_password?(params[:password])
-      render
-    else
-      raise ActiveRecord::RecordNotFound
-    end
+    @caregiver = Caregiver.authorize!(params[:email], params[:password])
   end
 
   api :GET, '/v1/caregivers', 'api.docs.resources.caregivers.index.short_desc'
   param_group :pagination
   error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
   def index
-    @caregivers = Person.with_role(:caregiver).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
+    @persons = Person.with_role(:caregiver).includes(:user).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end
 
   api :GET, '/v1/caregivers/:id', 'api.docs.resources.caregivers.show.short_desc'
   def show
+    @caregiver = Caregiver.find(params[:id])
   end
 
   api :POST, '/v1/caregivers', 'api.docs.resources.caregivers.create.short_desc'
@@ -77,8 +77,8 @@ class Api::V1::CaregiversController < Api::V1::BaseController
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
-    @caregiver = Person.create_caregiver(permitted_create_params, permitted_create_user_params)
-    if @caregiver.persisted?
+    @caregiver = Caregiver.create(permitted_create_params)
+    if @caregiver.save
       render action: :show
     else
       render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @caregiver.errors)
@@ -91,7 +91,7 @@ class Api::V1::CaregiversController < Api::V1::BaseController
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def update
-    if @caregiver.update_attributes(permitted_update_params)
+    if @caregiver.update(permitted_update_params)
       render action: :show
     else
       render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @caregiver.errors)
@@ -100,21 +100,16 @@ class Api::V1::CaregiversController < Api::V1::BaseController
 
   private
   def set_caregiver
-    @caregiver = Person.with_role(:caregiver).find(params[:id])
+    @caregiver = Caregiver.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permitted_create_params
-    params.permit(:first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile)
+    params.permit(:first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :email, :password, :password_confirmation)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permitted_update_params
-    params.permit(:first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile)
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def permitted_create_user_params
-    params.extract!(:email, :password, :password_confirmation).permit(:email, :password, :password_confirmation)
+    params.permit(:first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :email)
   end
 end

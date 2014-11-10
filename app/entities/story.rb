@@ -30,7 +30,8 @@ class Story < ActiveRecord::Base
   belongs_to :story_theme
   belongs_to :teller, class_name: 'Person', foreign_key: 'teller_id'
 
-  has_many :story_fragments
+  has_many :attachments, as: :attachable, dependent: :destroy
+  has_many :story_fragments, dependent: :destroy
 
   accepts_nested_attributes_for :story_context, reject_if: proc { |attributes| attributes['name'].blank? }
   accepts_nested_attributes_for :story_theme, reject_if: proc { |attributes| attributes['name'].blank? }

@@ -245,6 +245,6 @@ class ArrayValidator < Apipie::Validator::BaseValidator
   end
 
   def description
-    'String Or Array'
+    'Array'
   end
 end

@@ -79,3 +79,6 @@ gem 'apipie-rails', '~> 0.2.6'
 # Fast Rails 3+ templating system with JSON, XML and PList support
 gem 'rabl-rails', '~> 0.4.0'
 
+# Easy upload management for ActiveRecord
+gem 'paperclip', '~> 4.2.0'
+

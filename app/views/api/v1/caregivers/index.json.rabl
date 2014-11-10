@@ -1,8 +1,8 @@
-child :@caregivers, root: :response do
+child :@persons, root: :response do
   extends 'api/v1/caregivers/base'
-  node(:email) { |caregiver| caregiver.try(:user).try(:email) }
+  node(:email) { |person| person.try(:user).try(:email) }
 end
 node :pagination do
-  pagination_information(@caregivers)
+  pagination_information(@persons)
 end
 

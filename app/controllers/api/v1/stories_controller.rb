@@ -28,6 +28,7 @@ class Api::V1::StoriesController < Api::V1::BaseController
     param :story_fragment, :string, desc: 'api.docs.resources.stories.common.params.story_fragment', required: true
     param :teller_id, :number, desc: 'api.docs.resources.stories.common.params.teller_id', required: true
     param :telling_date, :string, desc: 'api.docs.resources.stories.common.params.telling_date', required: true
+    param :attachments, :array, desc: 'api.docs.resources.stories.common.params.attachments', required: false
     param_group :common
   end
 
@@ -61,6 +62,7 @@ class Api::V1::StoriesController < Api::V1::BaseController
   def create
     @story = Story.new(permitted_create_params)
     @story.creator = current_user.try(:person)
+    process_attachments(@story, permitted_attachments_params[:attachments])
     if @story.save
       render action: :show
     else
@@ -94,5 +96,19 @@ class Api::V1::StoriesController < Api::V1::BaseController
   # Never trust parameters from the scary internet, only allow the white list through.
   def permitted_update_params
     params.permit(:teller_id, :story_theme_id, :story_context_id, :telling_date, :other_story_theme, :other_story_context)
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def permitted_attachments_params
+    params.permit(attachments: [])
+  end
+
+
+  def process_attachments(story, attachments = {})
+    if attachments.present?
+      attachments.each { |attachment|
+        story.attachments.build(media: attachment)
+      }
+    end
   end
 end

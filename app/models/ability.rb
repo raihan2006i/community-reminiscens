@@ -18,6 +18,6 @@ class Ability
     can :manage, Group
     can :manage, Story
     can :manage, StoryFragment
-    can :manage, Person
+    can :manage, Caregiver
   end
 end
