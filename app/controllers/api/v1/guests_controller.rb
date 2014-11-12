@@ -6,7 +6,7 @@ class Api::V1::GuestsController < Api::V1::BaseController
 
   before_action :set_guest, only: [:show, :update]
 
-  authorize_resource :person
+  authorize_resource :guest
 
   respond_to :json
 
@@ -30,12 +30,14 @@ class Api::V1::GuestsController < Api::V1::BaseController
   def_param_group :create_guest do
     param :first_name, :string, desc: 'api.docs.resources.guests.common.params.first_name', required: true
     param :last_name, :string, desc: 'api.docs.resources.guests.common.params.last_name', required: true
+    param :group_id, :number, desc: 'api.docs.resources.guests.common.params.group_id', required: true
     param_group :common
   end
 
   def_param_group :update_guest do
     param :first_name, :string, desc: 'api.docs.resources.guests.common.params.first_name', required: false
     param :last_name, :string, desc: 'api.docs.resources.guests.common.params.last_name', required: false
+    param :group_id, :number, desc: 'api.docs.resources.guests.common.params.group_id', required: false
     param_group :common
   end
 
@@ -48,7 +50,7 @@ class Api::V1::GuestsController < Api::V1::BaseController
   param_group :pagination
   error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   def index
-    @guests = Person.with_role(:guest).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
+    @guests = Guest.paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end
 
   api :GET, '/v1/guests/:id', 'api.docs.resources.guests.show.short_desc'
@@ -61,8 +63,8 @@ class Api::V1::GuestsController < Api::V1::BaseController
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
-    @guest = Person.create_guest(permitted_create_params)
-    if @guest.persisted?
+    @guest = Guest.new(permitted_create_params)
+    if @guest.save
       render action: :show
     else
       render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @guest.errors)
@@ -84,16 +86,16 @@ class Api::V1::GuestsController < Api::V1::BaseController
 
   private
   def set_guest
-    @guest = Person.with_role(:guest).find(params[:id])
+    @guest = Guest.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permitted_create_params
-    params.permit(:first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile)
+    params.permit(:first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :group_id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permitted_update_params
-    params.permit(:first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile)
+    params.permit(:first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :group_id)
   end
 end

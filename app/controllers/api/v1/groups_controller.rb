@@ -6,7 +6,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   before_action :set_group, only: [:show, :update, :guests, :register_a_person]
 
-  authorize_resource
+  authorize_resource :group
 
   respond_to :json
 
@@ -36,7 +36,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
   param_group :pagination
   error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   def index
-    @groups = Group.includes(:manager).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
+    @groups = Group.paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end
 
   api :GET, '/v1/groups/:id', 'api.docs.resources.groups.show.short_desc'
@@ -50,7 +50,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
     @group = Group.new(permitted_create_params)
-    @group.creator = current_user.try(:person)
+    @group.creator = current_user.try(:caregiver)
     if @group.save
       render action: :show
     else
@@ -77,22 +77,6 @@ class Api::V1::GroupsController < Api::V1::BaseController
   def guests
     @guests = @group.guests.paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
     render 'api/v1/guests/index'
-  end
-
-  api :POST, '/v1/groups/:id/guests', 'api.docs.resources.groups.register_a_person.short_desc'
-  param :person_id, :number, desc: 'api.docs.resources.groups.register_a_person.params.person_id', required: true
-  error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
-  error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
-  error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
-  def register_a_person
-    @guest = Person.find(params[:person_id])
-    @guest.group = @group
-    if @guest.save
-      render 'api/v1/guests/show'
-    else
-      errors = { person_id: @guest.errors[:base] }.merge!(@guest.errors.to_h.except(:base))
-      render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, errors)
-    end
   end
 
   private

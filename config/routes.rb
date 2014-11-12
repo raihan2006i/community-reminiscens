@@ -13,7 +13,6 @@ Rails.application.routes.draw do
       resources :groups do
         member do
           get :guests
-          post :guests, to: 'groups#register_a_person'
         end
       end
       resources :guests

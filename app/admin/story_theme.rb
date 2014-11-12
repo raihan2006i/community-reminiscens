@@ -1,5 +1,5 @@
 ActiveAdmin.register StoryTheme do
-  menu priority: 4, url: -> { admin_story_themes_path(locale: I18n.locale) }
+  menu priority: 3, url: -> { admin_story_themes_path(locale: I18n.locale) }
   permit_params :name, :start_age, :end_age, :source, translations_attributes: [:id, :locale, :name, :_destroy]
 
   filter :name
@@ -31,9 +31,8 @@ ActiveAdmin.register StoryTheme do
     id_column
     column :name
     column :source
-    column :created_at
-    column :updated_at
     column :creator
+    column :created_at
     translation_status
     actions defaults: false do |story_theme|
       links = ''.html_safe
@@ -41,6 +40,21 @@ ActiveAdmin.register StoryTheme do
       links += link_to I18n.t('active_admin.edit'), edit_admin_story_theme_path(story_theme, locale: I18n.locale), class: 'member_link view_link'
       links += link_to I18n.t('active_admin.delete'), admin_story_theme_path(story_theme, locale: I18n.locale), :method => :delete, :confirm => I18n.t('active_admin.delete_confirmation'), class: 'member_link view_link'
       links
+    end
+  end
+
+  show do
+    panel 'Theme Details' do
+      attributes_table_for resource do
+        row :id
+        row :name
+        row :creator
+        row :start_age
+        row :end_age
+        row :source
+        row :created_at
+        row :updated_at
+      end
     end
   end
 end

@@ -1,37 +1,23 @@
-class Caregiver
+class Caregiver < Person
   # Start external modules declaration
   #
-  include ActiveModel::Validations
-  include ActiveModel::Conversion
-  extend ActiveModel::Naming
+  # Remove this line and start writing your code here
   #
   # End external modules declaration
 
   # Start attributes reader/writer declaration
   # Please try to maintain alphabetical order
   #
-  attr_reader :person
-  attr_reader :user
-
-  delegate :first_name, :first_name=,
-           :last_name, :first_name=,
-           :title, :title=,
-           :birthday, :birthday=,
-           :address, :address=,
-           :city, :city=,
-           :country, :country=,
-           :phone, :phone=,
-           :mobile, :mobile=,
-           :id,
-           :created_at,
-           :updated_at,
-           to: :person, prefix: false, allow_nil: false
-
-  delegate :email, :email=,
-           :password, :password=,
-           :password_confirmation, :password_confirmation=,
-           :authentication_token,
-           :to => :user, :prefix => false, :allow_nil => false
+  delegate  :email, :email=,
+            :password, :password=,
+            :password_confirmation, :password_confirmation=,
+            :authentication_token,
+            :sign_in_count,
+            :current_sign_in_at,
+            :last_sign_in_at,
+            :current_sign_in_ip,
+            :last_sign_in_ip,
+            to: :user, :prefix => false, :allow_nil => true
   #
   # End attributes reader/writer declaration
 
@@ -45,7 +31,9 @@ class Caregiver
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  # A Caregiver is belongs to a +User+ object
+  # This +User+ object is for sign-in in the system
+  belongs_to :user, inverse_of: :caregiver, dependent: :destroy
   #
   # End relations declaration
 
@@ -59,77 +47,38 @@ class Caregiver
   # Start callbacks declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  after_commit :assign_role, on: :create
+  after_save :save_user
   #
   # End callbacks declaration
 
   # Start instance method declaration
   # Please try to maintain alphabetical order
   #
-  def attributes=(attributes)
-    attributes.each { |k, v| self.send("#{k}=", v) }
-  end
 
+  # Start instance method declaration
+  # Please try to maintain alphabetical order
+  #
   def errors
-    person.errors.messages.each do |key, values|
-      values.each do |value|
-        super.add(key, value)
-      end
-    end
     user.errors.messages.each do |key, values|
       values.each do |value|
         super.add(key, value)
       end
-    end
+    end if user
     super
   end
 
-  def initialize(person, user)
-    raise ArgumentError, 'Argument 0 should be an instance of Person class' unless person.is_a?(Person)
-    raise ArgumentError, 'Argument 0 should be an instance of User class' unless user.is_a?(User)
-    @user = user
-    @person = person
-    @person.user = @user
-  end
-
-  def persisted?
-    @user.persisted? && @person.persisted?
-  end
-
-  def save
-    Person.transaction do
-      person_is_new = @person.new_record?
-      @person.save
-      @person.add_role Person::ROLE_CAREGIVER if person_is_new
+  def initialize(attributes = nil, options = {})
+    super(attributes, options) do
+      build_user(attributes.slice(:email, :password, :password_confirmation)) if !user && !!attributes
     end
-    User.transaction do
-      @user.save
-    end
-  end
-
-  def save!
-    Person.transaction do
-      person_is_new = @person.new_record?
-      @person.save!
-      @person.add_role Person::ROLE_CAREGIVER if person_is_new
-    end
-    User.transaction do
-      @user.save!
-    end
-  end
-
-  def update(attributes)
-    attributes.delete(:password)
-    attributes.delete(:password_confirmation)
-    self.attributes = attributes
-    save
   end
 
   def valid?(context = nil)
+    context ||= (new_record? ? :create : :update)
     errors.clear
     valid = super(context)
-    valid = @person.valid? && valid
-    @user.valid? && valid
+    user.valid?(context) && valid
   end
   #
   # End instance method declaration
@@ -137,35 +86,20 @@ class Caregiver
   # Start class method declaration
   # Please try to maintain alphabetical order
   #
+  default_scope { with_role(ROLE_CAREGIVER) }
+
   def self.authorize(email, password)
-    user = User.find_by(email: email)
-    if user && user.valid_password?(password)
-      Caregiver.new(user.person, user)
-    else
-      nil
-    end
+    caregiver = joins(:user).where(users: { email: email}).first
+    (caregiver && caregiver.user && caregiver.user.valid_password?(password)) ? caregiver : nil
   end
 
   def self.authorize!(email, password)
-    user = User.find_by!(email: email)
-    if user && user.valid_password?(password)
-      Caregiver.new(user.person, user)
-    else
-      raise ActiveRecord::RecordNotFound
-    end
+    caregiver = joins(:user).where(users: { email: email}).first!
+    (caregiver && caregiver.user && caregiver.user.valid_password?(password)) ? caregiver : (raise ActiveRecord::RecordNotFound)
   end
 
-  def self.create(attributes)
-    person = Person.new
-    user = User.new
-    caregiver = Caregiver.new(person, user)
-    caregiver.attributes = attributes
-    caregiver.save
-  end
-
-  def self.find(id)
-    person = Person.caregivers.find(id)
-    Caregiver.new(person, person.user)
+  def self.as_options
+    pluck("concat(#{table_name}.first_name, ' ', #{table_name}.last_name), #{table_name}.id")
   end
   #
   # End class method declaration
@@ -181,7 +115,13 @@ class Caregiver
   # Please try to maintain alphabetical order
   #
   private
-  # Remove this line and start writing your code here
+  def assign_role
+    add_role ROLE_CAREGIVER
+  end
+
+  def save_user
+    user.save if user && user.changed?
+  end
   #
   # End private methods
 end

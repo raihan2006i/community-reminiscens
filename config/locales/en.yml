@@ -96,6 +96,7 @@ en:
               country: Guest's country
               phone: Guest's phone
               mobile: Guest's mobile
+              group_id: Group's id where the guest is belongs
           index:
             short_desc: Returns available guests.
             full_desc:
@@ -164,7 +165,7 @@ en:
           common:
             params:
               name: Name of the group
-              manager_id: Manager id of the group. manager_id should be a Person id
+              manager_id: Manager id of the group. manager_id should be a Caregiver id
           index:
             short_desc: Returns available groups.
             full_desc:
@@ -189,12 +190,6 @@ en:
             short_desc: Returns guests of a group.
             full_desc:
             params:
-            errors:
-          register_a_person:
-            short_desc: Register a person under a group. The person should be a guest
-            full_desc:
-            params:
-              person_id: id of a person. The person should be a guest, otherwise this api method will return 422 Invalid Resource error as json
             errors:
         stories:
           short_desc: Stories

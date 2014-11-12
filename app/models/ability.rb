@@ -7,7 +7,7 @@ class Ability
 
     user ||= User.new # guest user (not logged in)
 
-    if user.person.present? && user.person.is_caregiver?
+    if user.caregiver.present? && user.caregiver.is_caregiver?
       caregivers_abilities
     end
   end
@@ -19,5 +19,6 @@ class Ability
     can :manage, Story
     can :manage, StoryFragment
     can :manage, Caregiver
+    can :manage, Guest
   end
 end

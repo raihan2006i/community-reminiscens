@@ -1,1 +1,1 @@
-attributes :id, :name
+attributes :id, :name, :manager_id, :created_at, :updated_at

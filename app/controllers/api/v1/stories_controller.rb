@@ -61,7 +61,7 @@ class Api::V1::StoriesController < Api::V1::BaseController
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
     @story = Story.new(permitted_create_params)
-    @story.creator = current_user.try(:person)
+    @story.creator = current_user.try(:caregiver)
     process_attachments(@story, permitted_attachments_params[:attachments])
     if @story.save
       render action: :show

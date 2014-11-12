@@ -63,12 +63,11 @@ class Api::V1::CaregiversController < Api::V1::BaseController
   param_group :pagination
   error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
   def index
-    @persons = Person.with_role(:caregiver).includes(:user).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
+    @caregivers = Caregiver.includes(:user).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end
 
   api :GET, '/v1/caregivers/:id', 'api.docs.resources.caregivers.show.short_desc'
   def show
-    @caregiver = Caregiver.find(params[:id])
   end
 
   api :POST, '/v1/caregivers', 'api.docs.resources.caregivers.create.short_desc'
@@ -77,7 +76,7 @@ class Api::V1::CaregiversController < Api::V1::BaseController
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
-    @caregiver = Caregiver.create(permitted_create_params)
+    @caregiver = Caregiver.new(permitted_create_params)
     if @caregiver.save
       render action: :show
     else
@@ -91,7 +90,7 @@ class Api::V1::CaregiversController < Api::V1::BaseController
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def update
-    if @caregiver.update(permitted_update_params)
+    if @caregiver.update_attributes(permitted_update_params)
       render action: :show
     else
       render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @caregiver.errors)

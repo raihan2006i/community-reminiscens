@@ -55,7 +55,7 @@ class Api::V1::StoryFragmentsController < Api::V1::BaseController
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
     @story_fragment = @story.story_fragments.new(permitted_create_params)
-    @story_fragment.creator = current_user.try(:person)
+    @story_fragment.creator = current_user.try(:caregiver)
     if @story_fragment.save
       render action: :show
     else

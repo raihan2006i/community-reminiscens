@@ -26,9 +26,9 @@ class Group < ActiveRecord::Base
   belongs_to :creator, polymorphic: true
 
   # Manager is a +Person+ who has caregiver role
-  belongs_to :manager, class_name: 'Person', foreign_key: 'manager_id'
+  belongs_to :manager, class_name: 'Caregiver', foreign_key: 'manager_id'
 
-  has_many :guests, class_name: 'Person', inverse_of: :group
+  has_many :guests, class_name: 'Guest', inverse_of: :group
   #
   # End relations declaration
 

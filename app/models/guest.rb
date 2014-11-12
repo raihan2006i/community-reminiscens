@@ -1,10 +1,7 @@
-class User < ActiveRecord::Base
+class Guest < Person
   # Start external modules declaration
   #
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  # Remove this line and start writing your code here
   #
   # End external modules declaration
 
@@ -25,25 +22,22 @@ class User < ActiveRecord::Base
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  has_one :caregiver, inverse_of: :user
+  # A Guest is belongs to a +Group+ object
+  belongs_to :group, inverse_of: :guests
   #
   # End relations declaration
 
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  validates :authentication_token, presence: true
+  validates :group, presence: true
   #
   # End validations declaration
 
   # Start callbacks declaration
   # Please try to maintain alphabetical order
   #
-  # before validating user assign authentication token if authentication token is blank?
-  before_validation :assign_authentication_token, if: 'authentication_token.blank?'
-
-  # before saving user record re assign authentication token if user password is changed?
-  before_save :assign_authentication_token, if: :encrypted_password_changed?
+  after_commit :assign_role, on: :create
   #
   # End callbacks declaration
 
@@ -57,27 +51,23 @@ class User < ActiveRecord::Base
   # Start class method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  default_scope { with_role(ROLE_GUEST) }
   #
   # End class method declaration
+
+  # Protected methods
+  # Please try to maintain alphabetical order
+  protected
+  # Remove this line and start writing your code here
+  #
+  # End protected methods
 
   # Private methods
   # Please try to maintain alphabetical order
   #
   private
-  # Assigns a unique authentication token
-  # if authentication token is null? or blank?
-  # then assign a unique token
-  def assign_authentication_token
-    self.authentication_token = generate_authentication_token
-  end
-
-  # Generates and returns a unique token
-  def generate_authentication_token
-    loop do
-      token = Devise.friendly_token
-      break token unless self.class.exists?(authentication_token: token)
-    end
+  def assign_role
+    add_role ROLE_CAREGIVER
   end
   #
   # End private methods

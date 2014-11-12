@@ -1,16 +1,9 @@
-ActiveAdmin.register Caregiver do
-  menu priority: 5
-  permit_params :first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :email, :password, :password_confirmation
-
-  controller do
-    def scoped_collection
-      end_of_association_chain.includes(:user)
-    end
-  end
+ActiveAdmin.register Guest do
+  menu priority: 7
+  permit_params :first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :group_id
 
   filter :first_name
   filter :last_name
-  filter :user_email, as: :string, label: 'Email'
   filter :city
   filter :country, as: :select, collection: ::ActionView::Helpers::FormOptionsHelper::COUNTRIES
 
@@ -26,9 +19,7 @@ ActiveAdmin.register Caregiver do
       f.input :country
       f.input :phone
       f.input :mobile
-      f.input :email, required: true
-      f.input :password, required: f.object.new_record?
-      f.input :password_confirmation, required: f.object.new_record?
+      f.input :group
     end
     f.actions
   end
@@ -37,14 +28,12 @@ ActiveAdmin.register Caregiver do
     selectable_column
     column :first_name
     column :last_name
-    column :email, sortable: 'users.email'
     column :created_at
-    column :updated_at
     actions
   end
 
   show do
-    panel 'Caregiver Details' do
+    panel 'Guest Details' do
       attributes_table_for resource do
         row :id
         row :title
@@ -57,12 +46,6 @@ ActiveAdmin.register Caregiver do
         row :phone
         row :mobile
         row :created_at
-        row :updated_at
-        row :current_sign_in_at
-        row :last_sign_in_at
-        row :current_sign_in_ip
-        row :last_sign_in_ip
-        row :authentication_token
       end
     end
   end

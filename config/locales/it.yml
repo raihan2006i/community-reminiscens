@@ -75,6 +75,7 @@ it:
               country: Paese del ospite
               phone: Telefono di ospite
               mobile: Cellulare di ospite
+              group_id: Id di gruppo in cui l'ospite è appartiene
           index:
             short_desc: Restituisce ospiti disponibili.
             full_desc:
@@ -143,7 +144,7 @@ it:
           common:
             params:
               name: Nome del gruppo
-              manager_id: Responsabile id del gruppo. manager_id dovrebbe essere un id Persona
+              manager_id: Responsabile id del gruppo. manager_id dovrebbe essere un id Caregiver
           index:
             short_desc: Restituisce i gruppi disponibili.
             full_desc:
@@ -168,12 +169,6 @@ it:
             short_desc: Restituisce ospiti di un gruppo.
             full_desc:
             params:
-            errors:
-          register_a_person:
-            short_desc: Registrare una persona sotto un gruppo. La persona dovrebbe essere un ospite
-            full_desc:
-            params:
-              person_id: id di una persona. La persona deve essere un ospite, altrimenti questo metodo API restituisce errore 422 Invalid risorse come JSON
             errors:
         stories:
           short_desc: Stories
