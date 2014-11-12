@@ -67,7 +67,7 @@ class Guest < Person
   #
   private
   def assign_role
-    add_role ROLE_CAREGIVER
+    add_role ROLE_GUEST
   end
   #
   # End private methods
