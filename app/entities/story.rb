@@ -11,7 +11,7 @@ class Story < ActiveRecord::Base
   # Will be used for both new and existing record
   attr_accessor :other_story_theme, :other_story_context
   # Will be used for only new record
-  attr_accessor :story_fragment
+  attr_accessor :fragment_contents
   #
   # End attributes reader/writer declaration
 
@@ -28,7 +28,7 @@ class Story < ActiveRecord::Base
   belongs_to :creator, polymorphic: true
   belongs_to :story_context
   belongs_to :story_theme
-  belongs_to :teller, class_name: 'Person', foreign_key: 'teller_id'
+  belongs_to :teller, class_name: 'Guest', foreign_key: 'teller_id'
 
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many :story_fragments, dependent: :destroy
@@ -41,15 +41,15 @@ class Story < ActiveRecord::Base
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  validates :story_context, :story_theme, :teller, :story_fragment, presence: true
-  validate :validator_teller_is_guest
+  validates :story_context, :story_theme, :teller, :telling_date, presence: true
+  validates :fragment_contents, presence: true, on: :create
   #
   # End validations declaration
 
   # Start callbacks declaration
   # Please try to maintain alphabetical order
   #
-  after_create :create_story_fragment
+  after_create :create_story_fragments
   before_validation :prepare_nested_attributes
   #
   # End callbacks declaration
@@ -58,7 +58,7 @@ class Story < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   def add_story_fragment(attributes, creator)
-    story_fragment = story_fragments.new(attributes)
+    story_fragment = story_fragments.build(attributes)
     story_fragment.creator = creator
     story_fragment.save
     story_fragment
@@ -77,10 +77,19 @@ class Story < ActiveRecord::Base
   # Please try to maintain alphabetical order
   protected
   #
+  # Remove this line and start writing your code here
+  #
+  # End protected methods
 
+  # Private methods
+  # Please try to maintain alphabetical order
+  #
+  private
   # This method must be called by the rails after_create callback
-  def create_story_fragment
-    add_story_fragment({content: story_fragment}, creator)
+  def create_story_fragments
+    fragment_contents.compact.each do |content|
+      add_story_fragment({content: content}, creator)
+    end
   end
 
   # This method must be registered by the rails validate class method
@@ -111,24 +120,6 @@ class Story < ActiveRecord::Base
       end
     end
   end
-
-  # This method must be registered by the rails validate class method
-  # To check whether manager is a caregiver
-  # If manager is not a caregiver then add :not_a_caregiver error on :manager attribute
-  def validator_teller_is_guest
-    if teller.present? && !teller.is_guest?
-      errors.add(:teller, I18n.t(:not_a_guest, scope: [:activerecord, :errors]))
-    end
-  end
-
-  #
-  # End protected methods
-
-  # Private methods
-  # Please try to maintain alphabetical order
-  #
-  private
-  # Remove this line and start writing your code here
   #
   # End private methods
 end

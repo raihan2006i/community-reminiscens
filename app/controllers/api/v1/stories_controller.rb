@@ -25,10 +25,10 @@ class Api::V1::StoriesController < Api::V1::BaseController
   end
 
   def_param_group :create_story do
-    param :story_fragment, :string, desc: 'api.docs.resources.stories.common.params.story_fragment', required: true
     param :teller_id, :number, desc: 'api.docs.resources.stories.common.params.teller_id', required: true
     param :telling_date, :string, desc: 'api.docs.resources.stories.common.params.telling_date', required: true
     param :attachments, :array, desc: 'api.docs.resources.stories.common.params.attachments', required: false
+    param :fragment_contents, :array, desc: 'api.docs.resources.stories.common.params.fragment_contents', required: true
     param_group :common
   end
 
@@ -90,7 +90,7 @@ class Api::V1::StoriesController < Api::V1::BaseController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permitted_create_params
-    params.permit(:teller_id, :story_theme_id, :story_context_id, :telling_date, :other_story_theme, :other_story_context, :story_fragment)
+    params.permit(:teller_id, :story_theme_id, :story_context_id, :telling_date, :other_story_theme, :other_story_context, fragment_contents: [])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,1 +1,1 @@
-attributes :id, :created_at, :updated_at
+attributes :id, :teller_id, :telling_date, :story_context_id, :story_theme_id, :created_at, :updated_at

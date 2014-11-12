@@ -199,7 +199,8 @@ en:
               story_context_id: Context id of the story
               other_story_theme: Theme name of the story. If a story theme is not available in the system use this param
               other_story_context: Context name of the story. If a story context is not available in the system use this param
-              story_fragment: Fragment or content of the story
+              fragment_contents: Fragments or contents of the story
+              attachments: Attachments of the story
               teller_id: Teller id of the story. Teller id is a Guest id
               telling_date: When the story was told by Guest. Telling date should be in YYYY-MM-DD format
           index:

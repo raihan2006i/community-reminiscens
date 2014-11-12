@@ -26,6 +26,7 @@ ActiveAdmin.register Guest do
 
   index do
     selectable_column
+    id_column
     column :first_name
     column :last_name
     column :created_at

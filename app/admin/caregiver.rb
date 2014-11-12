@@ -35,6 +35,7 @@ ActiveAdmin.register Caregiver do
 
   index do
     selectable_column
+    id_column
     column :first_name
     column :last_name
     column :email, sortable: 'users.email'

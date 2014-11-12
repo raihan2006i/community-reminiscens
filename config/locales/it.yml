@@ -178,7 +178,8 @@ it:
               story_context_id: Contesto id della storia
               other_story_theme: Nome del tema della storia. Se un tema storia non è disponibile nel sistema di questa param
               other_story_context: Nome del contesto della storia. Se un contesto storia non è disponibile nel sistema di questa param
-              story_fragment: Frammento o il contenuto della storia
+              fragment_contents: Frammenti o contenuti della storia
+              attachments: Allegati della storia
               teller_id: Teller id della storia. Teller id è un id Ospite
               telling_date: Quando la storia è stata raccontata da Guest. Data raccontare dovrebbe essere nel formato AAAA-MM-GG formato
           index:
