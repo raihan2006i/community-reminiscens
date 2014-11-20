@@ -1,4 +1,4 @@
-class StoryTheme < ActiveRecord::Base
+class Context < ActiveRecord::Base
   # Start external modules declaration
   #
   include NameFilters
@@ -35,7 +35,6 @@ class StoryTheme < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   validates :name, presence: true
-  validates :start_age, :end_age, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   #
   # End validations declaration
 

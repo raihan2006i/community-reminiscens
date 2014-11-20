@@ -1,14 +1,14 @@
-ActiveAdmin.register StoryTheme do
-  menu priority: 3, url: -> { admin_story_themes_path(locale: I18n.locale) }
+ActiveAdmin.register Theme do
+  menu priority: 3, url: -> { admin_themes_path(locale: I18n.locale) }
   permit_params :name, :start_age, :end_age, :source, translations_attributes: [:id, :locale, :name, :_destroy]
 
   filter :name
-  filter :source, as: :select, collection: StoryContext::SOURCES
+  filter :source, as: :select, collection: Context::SOURCES
 
   controller do
     def create
-      @story_theme = StoryTheme.new permitted_params[:story_theme]
-      @story_theme.creator = current_admin_user
+      @theme = Theme.new permitted_params[:theme]
+      @theme.creator = current_admin_user
       create!
     end
   end
@@ -18,7 +18,7 @@ ActiveAdmin.register StoryTheme do
       f.input :name
       f.input :start_age, as: :number
       f.input :end_age, as: :number
-      f.input :source, as: :select, collection: StoryContext::SOURCES
+      f.input :source, as: :select, collection: Context::SOURCES
     end
     f.translated_inputs "Translated fields", switch_locale: true do |t|
       t.input :name
@@ -34,11 +34,11 @@ ActiveAdmin.register StoryTheme do
     column :creator
     column :created_at
     translation_status
-    actions defaults: false do |story_theme|
+    actions defaults: false do |theme|
       links = ''.html_safe
-      links += link_to I18n.t('active_admin.view'), admin_story_theme_path(story_theme, locale: I18n.locale), class: 'member_link view_link'
-      links += link_to I18n.t('active_admin.edit'), edit_admin_story_theme_path(story_theme, locale: I18n.locale), class: 'member_link view_link'
-      links += link_to I18n.t('active_admin.delete'), admin_story_theme_path(story_theme, locale: I18n.locale), :method => :delete, :confirm => I18n.t('active_admin.delete_confirmation'), class: 'member_link view_link'
+      links += link_to I18n.t('active_admin.view'), admin_theme_path(theme, locale: I18n.locale), class: 'member_link view_link'
+      links += link_to I18n.t('active_admin.edit'), edit_admin_theme_path(theme, locale: I18n.locale), class: 'member_link view_link'
+      links += link_to I18n.t('active_admin.delete'), admin_theme_path(theme, locale: I18n.locale), :method => :delete, :confirm => I18n.t('active_admin.delete_confirmation'), class: 'member_link view_link'
       links
     end
   end

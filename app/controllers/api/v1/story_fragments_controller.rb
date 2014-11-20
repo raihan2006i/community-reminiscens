@@ -5,7 +5,7 @@ class Api::V1::StoryFragmentsController < Api::V1::BaseController
   before_filter :restrict_api_access
 
   before_action :set_story
-  before_action :set_story_fragment, only: [:show, :update]
+  before_action :set_story_fragment, only: [:show, :update, :destroy]
 
   authorize_resource :story
   authorize_resource through: :story
@@ -71,6 +71,17 @@ class Api::V1::StoryFragmentsController < Api::V1::BaseController
   def update
     if @story_fragment.update_attributes(permitted_update_params)
       render action: :show
+    else
+      render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @story_fragment.errors)
+    end
+  end
+
+  api :DELETE, '/v1/stories/:story_id/story_fragments/:id', 'api.docs.resources.story_fragments.destroy.short_desc'
+  error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
+  error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
+  def destroy
+    if @story_fragment.destroy
+      render nothing: true, status: :ok
     else
       render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @story_fragment.errors)
     end

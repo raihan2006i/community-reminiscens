@@ -81,4 +81,3 @@ gem 'rabl-rails', '~> 0.4.0'
 
 # Easy upload management for ActiveRecord
 gem 'paperclip', '~> 4.2.0'
-

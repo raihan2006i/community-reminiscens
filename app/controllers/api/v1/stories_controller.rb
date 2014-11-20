@@ -18,10 +18,10 @@ class Api::V1::StoriesController < Api::V1::BaseController
   end
 
   def_param_group :common do
-    param :story_theme_id, :number, desc: 'api.docs.resources.stories.common.params.story_theme_id', required: false
-    param :story_context_id, :number, desc: 'api.docs.resources.stories.common.params.story_context_id', required: false
-    param :other_story_theme, :string, desc: 'api.docs.resources.stories.common.params.other_story_theme', required: false
-    param :other_story_context, :string, desc: 'api.docs.resources.stories.common.params.other_story_context', required: false
+    param :theme_id, :number, desc: 'api.docs.resources.stories.common.params.theme_id', required: false
+    param :context_id, :number, desc: 'api.docs.resources.stories.common.params.context_id', required: false
+    param :other_theme, :string, desc: 'api.docs.resources.stories.common.params.other_theme', required: false
+    param :other_context, :string, desc: 'api.docs.resources.stories.common.params.other_context', required: false
   end
 
   def_param_group :create_story do
@@ -47,7 +47,7 @@ class Api::V1::StoriesController < Api::V1::BaseController
   param_group :pagination
   error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   def index
-    @stories = Story.includes(:creator, :story_context, :story_theme, :teller).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
+    @stories = Story.includes(:creator, :context, :theme, :teller).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end
 
   api :GET, '/v1/stories/:id', 'api.docs.resources.stories.show.short_desc'
@@ -90,12 +90,12 @@ class Api::V1::StoriesController < Api::V1::BaseController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permitted_create_params
-    params.permit(:teller_id, :story_theme_id, :story_context_id, :telling_date, :other_story_theme, :other_story_context, fragment_contents: [])
+    params.permit(:teller_id, :theme_id, :context_id, :telling_date, :other_theme, :other_context, fragment_contents: [])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permitted_update_params
-    params.permit(:teller_id, :story_theme_id, :story_context_id, :telling_date, :other_story_theme, :other_story_context)
+    params.permit(:teller_id, :theme_id, :context_id, :telling_date, :other_theme, :other_context)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

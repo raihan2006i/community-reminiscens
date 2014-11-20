@@ -3,11 +3,11 @@ child :@story, root: :response do
   child :creator, if: lambda { |story| story.creator.present? && story.creator.is_caregiver? } do
     extends 'api/v1/caregivers/base'
   end
-  child :story_context do
-    extends 'api/v1/story_contexts/base'
+  child :context do
+    extends 'api/v1/contexts/base'
   end
-  child :story_theme do
-    extends 'api/v1/story_themes/base'
+  child :theme do
+    extends 'api/v1/themes/base'
   end
   child :teller do
     extends 'api/v1/guests/base'

@@ -31,7 +31,7 @@ en:
             not_found: Not Found, If resource is not found.
             bad_request: Bad Request, If format of the parameters are wrong.
             invalid_resource: Invalid Resource, if resource validation failed.
-        story_themes:
+        themes:
           short_desc: Themes
           common:
             params:
@@ -58,7 +58,7 @@ en:
             full_desc:
             params:
             errors:
-        story_contexts:
+        contexts:
           short_desc: Contexts
           common:
             params:
@@ -195,10 +195,10 @@ en:
           short_desc: Stories
           common:
             params:
-              story_theme_id: Theme id of the story
-              story_context_id: Context id of the story
-              other_story_theme: Theme name of the story. If a story theme is not available in the system use this param
-              other_story_context: Context name of the story. If a story context is not available in the system use this param
+              theme_id: Theme id of the story
+              context_id: Context id of the story
+              other_theme: Theme name of the story. If a story theme is not available in the system use this param
+              other_context: Context name of the story. If a story context is not available in the system use this param
               fragment_contents: Fragments or contents of the story
               attachments: Attachments of the story
               teller_id: Teller id of the story. Teller id is a Guest id
@@ -248,6 +248,11 @@ en:
             full_desc:
             params:
             errors:
+          destroy:
+            short_desc: Delete a fragment of a story.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: The given resource could not be found.
       forbidden: The requested action was forbidden.
@@ -259,13 +264,13 @@ en:
       not_a_guest: is not a guest
       not_a_caregiver: is not a caregiver
     models:
-      story_context: Contexts
-      story_theme: Themes
+      context: Contexts
+      theme: Themes
       story_fragments: Fragments
     attributes:
-      story_context:
+      context:
         name: Name
-      story_theme:
+      theme:
         name: Name
       story_fragment:
         content: Content

@@ -1,0 +1,40 @@
+development:
+  admin_users:
+    - &admin_user0
+      index: 0
+      class_name: AdminUser
+      attributes:
+        email: admin@reminiscens.com
+        password: 12345678
+        password_confirmation: 12345678
+  story_contexts:
+    - &story_context0
+      index: 0
+      attributes:
+        name: Shower
+        source: predefined
+      associations:
+        creator: *admin_user0
+    - &story_context1
+      index: 1
+      attributes:
+        name: Playground
+        source: predefined
+      associations:
+        creator: *admin_user0
+  story_themes:
+    - &story_theme0
+      index: 0
+      attributes:
+        name: Childhood
+        source: predefined
+      associations:
+        creator: *admin_user0
+    - &story_theme1
+      index: 1
+      attributes:
+        name: Parenthood
+        source: predefined
+      associations:
+        creator: *admin_user0
+production:

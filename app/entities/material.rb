@@ -1,9 +1,7 @@
-class StoryContext < ActiveRecord::Base
+class Material < Story
   # Start external modules declaration
   #
-  include NameFilters
-  # Translated fields with globalize and for active admin
-  active_admin_translates :name
+  # Remove this line and start writing your code here
   #
   # End external modules declaration
 
@@ -17,24 +15,21 @@ class StoryContext < ActiveRecord::Base
   # Start constants declaration
   # Please try to maintain alphabetical order
   #
-  SOURCE_CONTRIBUTED = 'contributed'
-  SOURCE_PREDEFINED = 'predefined'
-  SOURCES = %W(#{SOURCE_CONTRIBUTED} #{SOURCE_PREDEFINED})
+  # Remove this line and start writing your code here
   #
   # End constants declaration
 
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  belongs_to :creator, polymorphic: true
-  has_many :stories
+  # Remove this line and start writing your code here
   #
   # End relations declaration
 
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  validates :name, presence: true
+  # Remove this line and start writing your code here
   #
   # End validations declaration
 
@@ -48,7 +43,10 @@ class StoryContext < ActiveRecord::Base
   # Start instance method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  def initialize(attributes = nil, options = {})
+    super(attributes, options)
+    self.type = TYPE_MATERIAL
+  end
   #
   # End instance method declaration
 
@@ -58,6 +56,13 @@ class StoryContext < ActiveRecord::Base
   # Remove this line and start writing your code here
   #
   # End class method declaration
+
+  # Protected methods
+  # Please try to maintain alphabetical order
+  protected
+  # Remove this line and start writing your code here
+  #
+  # End protected methods
 
   # Private methods
   # Please try to maintain alphabetical order

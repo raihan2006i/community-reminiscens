@@ -1,9 +1,14 @@
 class CreateStoryThemeTranslationTable < ActiveRecord::Migration
-  def up
-    StoryTheme.create_translation_table!({ name: :string }, { migrate_data: true })
-  end
+  def change
+    create_table :story_theme_translations do |t|
+      t.integer :story_theme_id
+      t.string :locale, null: false
+      t.string :name
 
-  def down
-    StoryTheme.drop_translation_table! migrate_data: true
+      t.timestamps
+    end
+
+    add_index :story_theme_translations, :story_theme_id
+    add_index :story_theme_translations, :locale
   end
 end

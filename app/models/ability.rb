@@ -13,8 +13,8 @@ class Ability
   end
 
   def caregivers_abilities
-    can :manage, StoryTheme
-    can :manage, StoryContext
+    can :manage, Theme
+    can :manage, Context
     can :manage, Group
     can :manage, Story
     can :manage, StoryFragment

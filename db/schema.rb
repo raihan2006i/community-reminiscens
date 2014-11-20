@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103152835) do
+ActiveRecord::Schema.define(version: 20141117161916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,28 @@ ActiveRecord::Schema.define(version: 20141103152835) do
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["person_id"], name: "index_comments_on_person_id", using: :btree
 
+  create_table "context_translations", force: true do |t|
+    t.integer  "context_id", null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
+
+  add_index "context_translations", ["context_id"], name: "index_context_translations_on_context_id", using: :btree
+  add_index "context_translations", ["locale"], name: "index_context_translations_on_locale", using: :btree
+
+  create_table "contexts", force: true do |t|
+    t.string   "name"
+    t.integer  "creator_id"
+    t.string   "creator_type"
+    t.string   "source",       default: "contributed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contexts", ["creator_id", "creator_type"], name: "index_contexts_on_creator_id_and_creator_type", using: :btree
+
   create_table "groups", force: true do |t|
     t.string   "name"
     t.integer  "manager_id"
@@ -127,8 +149,8 @@ ActiveRecord::Schema.define(version: 20141103152835) do
 
   create_table "stories", force: true do |t|
     t.integer  "teller_id"
-    t.integer  "story_theme_id"
-    t.integer  "story_context_id"
+    t.integer  "theme_id"
+    t.integer  "context_id"
     t.date     "telling_date"
     t.integer  "creator_id"
     t.string   "creator_type"
@@ -136,32 +158,10 @@ ActiveRecord::Schema.define(version: 20141103152835) do
     t.datetime "updated_at"
   end
 
+  add_index "stories", ["context_id"], name: "index_stories_on_context_id", using: :btree
   add_index "stories", ["creator_id", "creator_type"], name: "index_stories_on_creator_id_and_creator_type", using: :btree
-  add_index "stories", ["story_context_id"], name: "index_stories_on_story_context_id", using: :btree
-  add_index "stories", ["story_theme_id"], name: "index_stories_on_story_theme_id", using: :btree
   add_index "stories", ["teller_id"], name: "index_stories_on_teller_id", using: :btree
-
-  create_table "story_context_translations", force: true do |t|
-    t.integer  "story_context_id", null: false
-    t.string   "locale",           null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name"
-  end
-
-  add_index "story_context_translations", ["locale"], name: "index_story_context_translations_on_locale", using: :btree
-  add_index "story_context_translations", ["story_context_id"], name: "index_story_context_translations_on_story_context_id", using: :btree
-
-  create_table "story_contexts", force: true do |t|
-    t.string   "name"
-    t.integer  "creator_id"
-    t.string   "creator_type"
-    t.string   "source",       default: "contributed"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "story_contexts", ["creator_id", "creator_type"], name: "index_story_contexts_on_creator_id_and_creator_type", using: :btree
+  add_index "stories", ["theme_id"], name: "index_stories_on_theme_id", using: :btree
 
   create_table "story_fragments", force: true do |t|
     t.text     "content"
@@ -175,18 +175,18 @@ ActiveRecord::Schema.define(version: 20141103152835) do
   add_index "story_fragments", ["creator_id", "creator_type"], name: "index_story_fragments_on_creator_id_and_creator_type", using: :btree
   add_index "story_fragments", ["story_id"], name: "index_story_fragments_on_story_id", using: :btree
 
-  create_table "story_theme_translations", force: true do |t|
-    t.integer  "story_theme_id", null: false
-    t.string   "locale",         null: false
+  create_table "theme_translations", force: true do |t|
+    t.integer  "theme_id",   null: false
+    t.string   "locale",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
   end
 
-  add_index "story_theme_translations", ["locale"], name: "index_story_theme_translations_on_locale", using: :btree
-  add_index "story_theme_translations", ["story_theme_id"], name: "index_story_theme_translations_on_story_theme_id", using: :btree
+  add_index "theme_translations", ["locale"], name: "index_theme_translations_on_locale", using: :btree
+  add_index "theme_translations", ["theme_id"], name: "index_theme_translations_on_theme_id", using: :btree
 
-  create_table "story_themes", force: true do |t|
+  create_table "themes", force: true do |t|
     t.string   "name"
     t.integer  "start_age"
     t.integer  "end_age"
@@ -197,7 +197,7 @@ ActiveRecord::Schema.define(version: 20141103152835) do
     t.datetime "updated_at"
   end
 
-  add_index "story_themes", ["creator_id", "creator_type"], name: "index_story_themes_on_creator_id_and_creator_type", using: :btree
+  add_index "themes", ["creator_id", "creator_type"], name: "index_themes_on_creator_id_and_creator_type", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

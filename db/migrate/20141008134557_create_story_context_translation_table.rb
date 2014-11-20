@@ -1,9 +1,14 @@
 class CreateStoryContextTranslationTable < ActiveRecord::Migration
-  def up
-    StoryContext.create_translation_table!({ name: :string }, { migrate_data: true })
-  end
+  def change
+    create_table :story_context_translations do |t|
+      t.integer :story_context_id
+      t.string :locale, null: false
+      t.string :name
 
-  def down
-    StoryContext.drop_translation_table! migrate_data: true
+      t.timestamps
+    end
+
+    add_index :story_context_translations, :story_context_id
+    add_index :story_context_translations, :locale
   end
 end

@@ -9,7 +9,7 @@ class Story < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   # Will be used for both new and existing record
-  attr_accessor :other_story_theme, :other_story_context
+  attr_accessor :other_theme, :other_context
   # Will be used for only new record
   attr_accessor :fragment_contents
   #
@@ -26,22 +26,22 @@ class Story < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   belongs_to :creator, polymorphic: true
-  belongs_to :story_context
-  belongs_to :story_theme
+  belongs_to :context
+  belongs_to :theme
   belongs_to :teller, class_name: 'Guest', foreign_key: 'teller_id'
 
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many :story_fragments, dependent: :destroy
 
-  accepts_nested_attributes_for :story_context, reject_if: proc { |attributes| attributes['name'].blank? }
-  accepts_nested_attributes_for :story_theme, reject_if: proc { |attributes| attributes['name'].blank? }
+  accepts_nested_attributes_for :context, reject_if: proc { |attributes| attributes['name'].blank? }
+  accepts_nested_attributes_for :theme, reject_if: proc { |attributes| attributes['name'].blank? }
   #
   # End relations declaration
 
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  validates :story_context, :story_theme, :teller, :telling_date, presence: true
+  validates :context, :theme, :teller, :telling_date, presence: true
   validates :fragment_contents, presence: true, on: :create
   #
   # End validations declaration
@@ -94,28 +94,28 @@ class Story < ActiveRecord::Base
 
   # This method must be registered by the rails validate class method
   def prepare_nested_attributes
-    if other_story_context.present?
-      story_context = StoryContext.case_insensitive_filter_by_name(other_story_context).first
-      if story_context.present?
-        self.story_context = story_context
+    if other_context.present?
+      context = Context.case_insensitive_filter_by_name(other_context).first
+      if context.present?
+        self.context = context
       else
-        self.story_context_attributes = {
-            name: other_story_context,
+        self.context_attributes = {
+            name: other_context,
             creator: creator,
-            source: StoryContext::SOURCE_CONTRIBUTED
+            source: Context::SOURCE_CONTRIBUTED
         }
       end
     end
 
-    if other_story_theme.present?
-      story_theme = StoryTheme.case_insensitive_filter_by_name(other_story_context).first
-      if story_theme.present?
-        self.story_theme = story_theme
+    if other_theme.present?
+      theme = Theme.case_insensitive_filter_by_name(other_context).first
+      if theme.present?
+        self.theme = theme
       else
-        self.story_theme_attributes =  {
-            name: other_story_theme,
+        self.theme_attributes =  {
+            name: other_theme,
             creator: creator,
-            source: StoryTheme::SOURCE_CONTRIBUTED
+            source: Theme::SOURCE_CONTRIBUTED
         }
       end
     end
