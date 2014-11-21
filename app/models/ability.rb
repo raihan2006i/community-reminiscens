@@ -20,5 +20,6 @@ class Ability
     can :manage, StoryFragment
     can :manage, Caregiver
     can :manage, Guest
+    can :manage, Attachment
   end
 end

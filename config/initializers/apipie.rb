@@ -248,3 +248,25 @@ class ArrayValidator < Apipie::Validator::BaseValidator
     'Array'
   end
 end
+
+
+class FileValidator < Apipie::Validator::BaseValidator
+
+  def validate(value)
+    value.is_a?(ActionDispatch::Http::UploadedFile)
+  end
+
+  def self.build(param_description, argument, options, block)
+    if argument == :file
+      self.new(param_description)
+    end
+  end
+
+  def error
+    "Parameter #{param_name} expecting to be a File, got: #{@error_value}"
+  end
+
+  def description
+    'File'
+  end
+end

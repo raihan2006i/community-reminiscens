@@ -51,7 +51,7 @@ class Attachment < ActiveRecord::Base
     media_file_size
   end
 
-  def name
+  def file_name
     media_file_name
   end
 

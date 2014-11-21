@@ -253,6 +253,36 @@ en:
             full_desc:
             params:
             errors:
+        story_attachments:
+          short_desc: Attachments
+          common:
+            params:
+              media: The file to be attach
+          index:
+            short_desc: Returns available attachments of a story.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns an attachment of a story.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create an attachment of a story.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update an attachment of a story.
+            full_desc:
+            params:
+            errors:
+          destroy:
+            short_desc: Delete an attachment of a story.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: The given resource could not be found.
       forbidden: The requested action was forbidden.
