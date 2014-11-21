@@ -81,3 +81,5 @@ gem 'rabl-rails', '~> 0.4.0'
 
 # Easy upload management for ActiveRecord
 gem 'paperclip', '~> 4.2.0'
+
+gem 'rails_12factor', group: :production
