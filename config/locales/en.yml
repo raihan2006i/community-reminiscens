@@ -283,6 +283,41 @@ en:
             full_desc:
             params:
             errors:
+        comments:
+          short_desc: Comments
+          common:
+            params:
+              comment: Content of the comment
+        story_comments:
+          short_desc: Comments
+          common:
+            params:
+              comment: Content of the comment
+          index:
+            short_desc: Returns available comments of a story.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a comment of a story.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a comment of a story.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update a comment of a story.
+            full_desc:
+            params:
+            errors:
+          destroy:
+            short_desc: Delete a comment of a story.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: The given resource could not be found.
       forbidden: The requested action was forbidden.

@@ -1,8 +1,8 @@
 class Api::V1::CaregiversController < Api::V1::BaseController
   # First we need to authorize_user_access
-  before_filter :authorize_user_access, except: [ :a ]
+  before_filter :authorize_user_access, except: [ :authorize ]
   # Then we will check access_granted? and will response accordingly
-  before_filter :restrict_api_access
+  before_filter :restrict_api_access, except: [ :authorize ]
 
   before_action :set_caregiver, only: [:show, :update]
 

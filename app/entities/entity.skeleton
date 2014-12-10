@@ -1,4 +1,4 @@
-class Model
+class Entity < ActiveRecord::Base
   # Start external modules declaration
   #
   # Remove this line and start writing your code here

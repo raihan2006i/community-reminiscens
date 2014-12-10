@@ -262,6 +262,41 @@ it:
             full_desc:
             params:
             errors:
+        comments:
+          short_desc: Commenti
+          common:
+            params:
+              comment: Contenuto del commento
+        story_comments:
+          short_desc: Commenti
+          common:
+            params:
+              comment: Contenuto del commento
+          index:
+            short_desc: Restituisce lasciato di una storia.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce un commento di una storia.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creare un commento di una storia.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Aggiornare un commento di una storia.
+            full_desc:
+            params:
+            errors:
+          destroy:
+            short_desc: Eliminare un commento di una storia.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: La risorsa data non è stato trovato.
       forbidden: L'azione richiesta era proibito.

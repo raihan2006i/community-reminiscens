@@ -21,5 +21,6 @@ class Ability
     can :manage, Caregiver
     can :manage, Guest
     can :manage, Attachment
+    can :manage, Comment
   end
 end

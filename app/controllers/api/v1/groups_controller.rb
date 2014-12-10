@@ -15,6 +15,14 @@ class Api::V1::GroupsController < Api::V1::BaseController
     path '/v1/groups'
     formats ['json']
     api_versions '1'
+    description <<-EOS
+== Attributes
+* *name*:  *string* \n
+Name of the group
+* *manager_id*:  *integer* \n
+Manager of the group. <tt>manager_id</tt> should be a Caregiver <tt>id</tt>
+---
+EOS
   end
 
   def_param_group :create_group do
