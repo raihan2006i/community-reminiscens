@@ -1,8 +1,4 @@
 ActiveAdmin.register Group do
-  menu priority: 6
-
-  permit_params :name, :manager_id
-
   controller do
     def create
       @group = Group.new permitted_params[:group]
@@ -10,6 +6,9 @@ ActiveAdmin.register Group do
       create!
     end
   end
+
+  filter :name
+  filter :manager
 
   form do |f|
     f.semantic_errors
@@ -30,6 +29,9 @@ ActiveAdmin.register Group do
     column :updated_at
     actions
   end
+
+  menu priority: 6
+  permit_params :name, :manager_id
 
   show do
     panel 'Group Details' do

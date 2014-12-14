@@ -1,7 +1,4 @@
 ActiveAdmin.register Caregiver do
-  menu priority: 5
-  permit_params :first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :email, :password, :password_confirmation
-
   controller do
     def scoped_collection
       end_of_association_chain.includes(:user)
@@ -43,6 +40,9 @@ ActiveAdmin.register Caregiver do
     column :updated_at
     actions
   end
+
+  menu priority: 5
+  permit_params :first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :email, :password, :password_confirmation
 
   show do
     panel 'Caregiver Details' do

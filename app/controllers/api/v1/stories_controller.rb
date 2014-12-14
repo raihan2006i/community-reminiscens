@@ -28,7 +28,7 @@ class Api::V1::StoriesController < Api::V1::BaseController
     param :teller_id, :number, desc: 'api.docs.resources.stories.common.params.teller_id', required: true
     param :telling_date, :string, desc: 'api.docs.resources.stories.common.params.telling_date', required: true
     param :attachments, :array, desc: 'api.docs.resources.stories.common.params.attachments', required: false
-    param :fragment_contents, :array, desc: 'api.docs.resources.stories.common.params.fragment_contents', required: true
+    param :fragment_contents, :array, desc: 'api.docs.resources.stories.common.params.fragment_contents', required: false
     param_group :common
   end
 

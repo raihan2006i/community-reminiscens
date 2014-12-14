@@ -23,6 +23,7 @@ class Attachment < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   belongs_to :attachable, polymorphic: true
+  belongs_to :creator, polymorphic: true
   #
   # End relations declaration
 

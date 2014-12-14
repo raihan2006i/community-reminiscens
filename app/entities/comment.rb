@@ -26,14 +26,14 @@ class Comment < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   belongs_to :commentable, polymorphic: true
-  belongs_to :person
+  belongs_to :commenter, polymorphic: true
   #
   # End relations declaration
 
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  validates :comment, presence: true
   #
   # End validations declaration
 

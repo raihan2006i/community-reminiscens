@@ -331,7 +331,9 @@ en:
     models:
       context: Contexts
       theme: Themes
-      story_fragments: Fragments
+      story_fragment: Fragments
+      comment: Comments
+      attachment: Attachments
     attributes:
       context:
         name: Name

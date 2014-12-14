@@ -1,7 +1,4 @@
 ActiveAdmin.register Guest do
-  menu priority: 7
-  permit_params :first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :group_id
-
   filter :first_name
   filter :last_name
   filter :city
@@ -32,6 +29,9 @@ ActiveAdmin.register Guest do
     column :created_at
     actions
   end
+
+  menu priority: 7
+  permit_params :first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :group_id
 
   show do
     panel 'Guest Details' do

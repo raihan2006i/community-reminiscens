@@ -50,7 +50,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
     @comment = @commentable.comments.build(permitted_create_params)
-    @comment.person = current_user.try(:caregiver)
+    @comment.commenter = current_user.try(:caregiver)
     if @comment.save
       render action: :show
     else

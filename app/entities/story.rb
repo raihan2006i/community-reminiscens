@@ -35,6 +35,9 @@ class Story < ActiveRecord::Base
 
   accepts_nested_attributes_for :context, reject_if: proc { |attributes| attributes['name'].blank? }
   accepts_nested_attributes_for :theme, reject_if: proc { |attributes| attributes['name'].blank? }
+  accepts_nested_attributes_for :story_fragments, allow_destroy: true
+  accepts_nested_attributes_for :attachments, allow_destroy: true
+  accepts_nested_attributes_for :comments, allow_destroy: true
   #
   # End relations declaration
 
@@ -42,7 +45,6 @@ class Story < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   validates :context, :theme, :teller, :telling_date, presence: true
-  validates :fragment_contents, presence: true, on: :create
   #
   # End validations declaration
 
@@ -89,7 +91,7 @@ class Story < ActiveRecord::Base
   def create_story_fragments
     fragment_contents.compact.each do |content|
       add_story_fragment({content: content}, creator)
-    end
+    end if fragment_contents.present? && fragment_contents.is_a?(Array)
   end
 
   # This method must be registered by the rails validate class method

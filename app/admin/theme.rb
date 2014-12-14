@@ -1,10 +1,4 @@
 ActiveAdmin.register Theme do
-  menu priority: 3, url: -> { admin_themes_path(locale: I18n.locale) }
-  permit_params :name, :start_age, :end_age, :source, translations_attributes: [:id, :locale, :name, :_destroy]
-
-  filter :name
-  filter :source, as: :select, collection: Context::SOURCES
-
   controller do
     def create
       @theme = Theme.new permitted_params[:theme]
@@ -12,6 +6,9 @@ ActiveAdmin.register Theme do
       create!
     end
   end
+
+  filter :name
+  filter :source, as: :select, collection: Context::SOURCES
 
   form do |f|
     f.inputs do
@@ -42,6 +39,9 @@ ActiveAdmin.register Theme do
       links
     end
   end
+
+  menu priority: 3, url: -> { admin_themes_path(locale: I18n.locale) }
+  permit_params :name, :start_age, :end_age, :source, translations_attributes: [:id, :locale, :name, :_destroy]
 
   show do
     panel 'Theme Details' do

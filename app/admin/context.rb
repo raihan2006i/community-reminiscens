@@ -1,10 +1,4 @@
 ActiveAdmin.register Context do
-  menu priority: 4, url: -> { admin_contexts_path(locale: I18n.locale) }
-  permit_params :name, :source, translations_attributes: [:id, :locale, :name, :_destroy]
-
-  filter :name
-  filter :source, as: :select, collection: Context::SOURCES
-
   controller do
     def create
       @context = Context.new permitted_params[:context]
@@ -12,6 +6,9 @@ ActiveAdmin.register Context do
       create!
     end
   end
+
+  filter :name
+  filter :source, as: :select, collection: Context::SOURCES
 
   form do |f|
     f.inputs do
@@ -40,6 +37,9 @@ ActiveAdmin.register Context do
       links
     end
   end
+
+  menu priority: 4, url: -> { admin_contexts_path(locale: I18n.locale) }
+  permit_params :name, :source, translations_attributes: [:id, :locale, :name, :_destroy]
 
   show do
     panel 'Context Details' do

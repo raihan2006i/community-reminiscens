@@ -310,6 +310,9 @@ it:
     models:
       context: Contesti
       theme: Temi
+      story_fragment: Frammenti
+      comment: Commenti
+      attachment: Allegati
     attributes:
       context:
         name: Nome

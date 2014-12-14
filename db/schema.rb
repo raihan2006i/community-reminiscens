@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141117161916) do
+ActiveRecord::Schema.define(version: 20141211141853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,23 +58,27 @@ ActiveRecord::Schema.define(version: 20141117161916) do
     t.string   "media_content_type"
     t.integer  "media_file_size"
     t.datetime "media_updated_at"
+    t.integer  "creator_id"
+    t.string   "creator_type"
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type", using: :btree
+  add_index "attachments", ["creator_id", "creator_type"], name: "index_attachments_on_creator_id_and_creator_type", using: :btree
 
   create_table "comments", force: true do |t|
     t.string   "title",            limit: 50, default: ""
     t.text     "comment"
     t.integer  "commentable_id"
     t.string   "commentable_type"
-    t.integer  "person_id"
     t.string   "role",                        default: "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "commenter_id"
+    t.string   "commenter_type"
   end
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
-  add_index "comments", ["person_id"], name: "index_comments_on_person_id", using: :btree
+  add_index "comments", ["commenter_id", "commenter_type"], name: "index_comments_on_commenter_id_and_commenter_type", using: :btree
 
   create_table "context_translations", force: true do |t|
     t.integer  "context_id", null: false
