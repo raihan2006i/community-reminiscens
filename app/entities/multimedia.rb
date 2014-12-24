@@ -22,7 +22,7 @@ class Multimedia < ActiveRecord::Base
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  has_and_belongs_to_many :blocks
   #
   # End relations declaration
 

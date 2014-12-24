@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   def generate_authentication_token
     loop do
       token = Devise.friendly_token
-      break token unless self.class.exists?(authentication_token: token)
+      break token unless self.class.exists?(authenticatiassign_authentication_tokenon_token: token)
     end
   end
   #

@@ -22,5 +22,6 @@ class Ability
     can :manage, Guest
     can :manage, Attachment
     can :manage, Comment
+    can :manage, Session
   end
 end

@@ -15,14 +15,17 @@ class Session < ActiveRecord::Base
   # Start constants declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  STATUS_NOT_STARTED = 'not_started'
+  STATUS_ONGOING = 'ongoing'
+  STATUS_FINISHED = 'finished'
   #
   # End constants declaration
 
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  belongs_to :creator, polymorphic: true
+  has_many :slots, dependent: :destroy
   #
   # End relations declaration
 

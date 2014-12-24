@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217182953) do
+ActiveRecord::Schema.define(version: 20141223163001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20141217182953) do
   create_table "sessions", force: true do |t|
     t.datetime "start_at"
     t.datetime "end_at"
-    t.string   "status"
+    t.string   "status",       default: "not_started"
     t.integer  "creator_id"
     t.string   "creator_type"
     t.datetime "created_at"

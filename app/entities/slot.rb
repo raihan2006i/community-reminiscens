@@ -22,7 +22,9 @@ class Slot < ActiveRecord::Base
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  belongs_to :creator, polymorphic: true
+  belongs_to :session
+  has_many :blocks, dependent: destroy
   #
   # End relations declaration
 
