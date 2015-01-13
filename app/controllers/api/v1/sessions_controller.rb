@@ -4,7 +4,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
   # Then we will check access_granted? and will response accordingly
   before_filter :restrict_api_access
 
-  before_action :set_session, only: [:show, :update]
+  before_action :set_session, only: [:show, :update, :destroy]
 
   authorize_resource
 
@@ -30,6 +30,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
   def_param_group :update_session do
     param :start_at, :string, desc: 'api.docs.resources.sessions.common.params.start_at', required: false
     param :end_at, :string, desc: 'api.docs.resources.sessions.common.params.end_at', required: false
+    param :status, [Session::STATUS_NOT_STARTED, Session::STATUS_ONGOING, Session::STATUS_FINISHED], desc: 'api.docs.resources.sessions.common.params.end_at', required: false
     param_group :common
   end
 
@@ -77,6 +78,17 @@ class Api::V1::SessionsController < Api::V1::BaseController
     end
   end
 
+  api :DELETE, '/v1/sessions/:id', 'api.docs.resources.sessions.destroy.short_desc'
+  error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
+  error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
+  def destroy
+    if @session.destroy
+      render nothing: true, status: :ok
+    else
+      render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @session.errors)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_session
@@ -90,6 +102,6 @@ class Api::V1::SessionsController < Api::V1::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def permitted_update_params
-      params.permit(:start_at, :end_at)
+      params.permit(:start_at, :end_at, :status)
     end
 end

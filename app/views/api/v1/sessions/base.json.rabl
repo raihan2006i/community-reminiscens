@@ -1,0 +1,1 @@
+attributes :id, :start_at, :end_at, :status, :created_at, :updated_at

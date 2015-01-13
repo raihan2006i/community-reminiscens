@@ -23,6 +23,11 @@ Rails.application.routes.draw do
       end
       resources :contexts
       resources :themes
+      resources :sessions do
+        resources :slots do
+          resources :blocks
+        end
+      end
     end
   end
 

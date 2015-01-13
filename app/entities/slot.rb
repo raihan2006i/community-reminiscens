@@ -24,7 +24,7 @@ class Slot < ActiveRecord::Base
   #
   belongs_to :creator, polymorphic: true
   belongs_to :session
-  has_many :blocks, dependent: destroy
+  has_many :blocks, dependent: :destroy
   #
   # End relations declaration
 

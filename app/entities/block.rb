@@ -31,7 +31,7 @@ class Block < ActiveRecord::Base
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  validates :blockable, presence: true
   #
   # End validations declaration
 

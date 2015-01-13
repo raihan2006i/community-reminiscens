@@ -4,9 +4,13 @@ class Api::V1::BlocksController < Api::V1::BaseController
   # Then we will check access_granted? and will response accordingly
   before_filter :restrict_api_access
 
-  before_action :set_block, only: [:show, :update]
+  before_action :set_session
+  before_action :set_slot
+  before_action :set_block, only: [:show, :update, :destroy]
 
-  authorize_resource
+  authorize_resource :session
+  authorize_resource :slot, through: :session
+  authorize_resource :block, through: :slot
 
   respond_to :json
 
@@ -34,58 +38,76 @@ class Api::V1::BlocksController < Api::V1::BaseController
     param :per_page, :number, desc: 'api.docs.resources.common.params.per_page', required: false
   end
 
-  api :GET, '/v1/blocks', 'api.docs.resources.blocks.index.short_desc'
+  api :GET, '/v1/sessions/:session_id/slots/:slot_id/blocks', 'api.docs.resources.blocks.index.short_desc'
   param_group :pagination
   error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   def index
-    @blocks = Block.paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
+    @blocks = @slot.blocks.paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end
 
-  api :GET, '/v1/blocks/:id', 'api.docs.resources.blocks.show.short_desc'
+  api :GET, '/v1/sessions/:session_id/slots/:slot_id/blocks/:id', 'api.docs.resources.blocks.show.short_desc'
   def show
   end
 
-  api :POST, '/v1/blocks', 'api.docs.resources.blocks.create.short_desc'
+  api :POST, '/v1/sessions/:session_id/slots/:slot_id/blocks', 'api.docs.resources.blocks.create.short_desc'
   param_group :create_block
   error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
-    @block = Block.new(permitted_create_params)
-    @block.blockable = current_user.try(:caregiver)
-    if @slot.save
+    @block = @slot.blocks.build(permitted_create_params)
+    if @block.save
       render action: :show
     else
-      render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @slot.errors)
+      render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @block.errors)
     end
   end
 
-  api :PUT, '/v1/slots/:id', 'api.docs.resources.slots.update.short_desc'
-  param_group :update_slot
+  api :PUT, '/v1/sessions/:session_id/slots/:slot_id/blocks/:id', 'api.docs.resources.slots.update.short_desc'
+  param_group :update_block
   error code: 400, desc: I18n.t('api.docs.resources.common.errors.bad_request')
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def update
-    if @slot.update_attributes(permitted_update_params)
+    if @block.update_attributes(permitted_update_params)
       render action: :show
     else
-      render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @slot.errors)
+      render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @block.errors)
+    end
+  end
+
+  api :DELETE, '/v1/sessions/:session_id/slots/:slot_id/blocks/:id', 'api.docs.resources.slots.destroy.short_desc'
+  error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
+  error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
+  def destroy
+    if @block.destroy
+      render nothing: true, status: :ok
+    else
+      render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @block.errors)
     end
   end
 
   private
   # Use callbacks to share common setup or constraints between actions.
+  def set_session
+    @session = Session.find(params[:session_id])
+  end
+
   def set_slot
-    @slot = Slot.find(params[:id])
+    @slot = @session.slots.find(params[:slot_id])
+  end
+
+  def set_block
+    @block = @slot.blocks.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permitted_create_params
-    params.permit(:title, :duration)
+    params.permit(:title, :duration, :blockable_id, :blockable_type)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def permitted_update_params
-    params.permit(:title, :duration)
+    params.permit(:title, :duration, :blockable_id, :blockable_type)
   end
 end

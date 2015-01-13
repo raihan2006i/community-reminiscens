@@ -23,5 +23,7 @@ class Ability
     can :manage, Attachment
     can :manage, Comment
     can :manage, Session
+    can :manage, Slot
+    can :manage, Block
   end
 end
