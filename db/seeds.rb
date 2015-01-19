@@ -12,15 +12,39 @@ else
 end
 
 puts 'Creating predefined StoryContexts ...'
-# TODO
+contexts = []
+context_seeds = File.read("#{Rails.root}/db/context_seeds.csv")
+context_seed_rows = CSV.parse(context_seeds, headers: false)
+context_seed_rows.each do |row|
+  context_name = row.join(',')
+  context = Context.find_or_initialize_by(name: context_name)
+  if context.new_record?
+    puts "Creating context: #{context.name}"
+    context.source = Context::SOURCE_PREDEFINED
+    context.save
+  end
+  contexts << context
+end
+
 puts 'Creating predefined StoryThemes ...'
-# TODO
+themes = []
+theme_seeds = File.read("#{Rails.root}/db/theme_seeds.csv")
+theme_seed_rows = CSV.parse(theme_seeds, headers: false)
+theme_seed_rows.each do |row|
+  theme_name = row.join(',')
+  theme = Theme.find_or_initialize_by(name: theme_name)
+  if theme.new_record?
+    puts "Creating theme: #{theme.name}"
+    theme.source = Theme::SOURCE_PREDEFINED
+    theme.save
+  end
+  themes << theme
+end
 
 puts 'Creating predefined Questions ...'
-question_themes_from_csv = []
-csv_text = File.read("#{Rails.root}/db/question_seeds.csv")
-csv = CSV.parse(csv_text, headers: false)
-theme_texts = csv.reject { |r| !r[2].present? }.collect { |r| r[2] }.uniq
+question_seeds = File.read("#{Rails.root}/db/question_seeds.csv")
+question_seed_rows = CSV.parse(question_seeds, headers: false)
+theme_texts = question_seed_rows.reject { |r| !r[2].present? }.collect { |r| r[2] }.uniq
 theme_texts.each do |theme_name|
   theme = Theme.find_or_initialize_by(name: theme_name)
   if theme.new_record?
@@ -28,13 +52,13 @@ theme_texts.each do |theme_name|
     theme.source = Theme::SOURCE_PREDEFINED
     theme.save
   end
-  question_themes_from_csv << theme
+  themes << theme
 end
 
-csv.each do |row|
+question_seed_rows.each do |row|
   content_text = row[0]
   theme_text = row[2]
-  theme = question_themes_from_csv.detect{|t| t.name == theme_text}
+  theme = themes.detect{|t| t.name == theme_text}
   question = Question.find_or_initialize_by(content: content_text)
   question.theme = theme if theme.present?
   if question.new_record?
