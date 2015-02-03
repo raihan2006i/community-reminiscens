@@ -1,1 +1,1 @@
-attributes :id, :title, :duration, :created_at, :updated_at
+attributes :id, :title, :duration, :teller_id, :created_at, :updated_at

@@ -1,0 +1,1 @@
+attributes :id, :session_id, :slot_id, :block_id, :created_at, :updated_at

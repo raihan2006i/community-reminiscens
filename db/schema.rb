@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141223163001) do
+ActiveRecord::Schema.define(version: 20150202175641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,14 @@ ActiveRecord::Schema.define(version: 20141223163001) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
+  create_table "session_histories", force: true do |t|
+    t.integer  "session_id"
+    t.integer  "slot_id"
+    t.integer  "block_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sessions", force: true do |t|
     t.datetime "start_at"
     t.datetime "end_at"
@@ -209,9 +217,11 @@ ActiveRecord::Schema.define(version: 20141223163001) do
     t.string   "creator_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "teller_id"
   end
 
   add_index "slots", ["creator_id", "creator_type"], name: "index_slots_on_creator_id_and_creator_type", using: :btree
+  add_index "slots", ["teller_id"], name: "index_slots_on_teller_id", using: :btree
 
   create_table "stories", force: true do |t|
     t.integer  "teller_id"

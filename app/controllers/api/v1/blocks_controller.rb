@@ -22,9 +22,9 @@ class Api::V1::BlocksController < Api::V1::BaseController
   end
 
   def_param_group :common do
-
+    param :blockable_id, :number, desc: 'api.docs.resources.blocks.common.params.blockable_id', required: true
+    param :blockable_type, %w(Story Question), desc: 'api.docs.resources.blocks.common.params.blockable_type', required: true
   end
-
   def_param_group :create_block do
     param_group :common
   end
@@ -76,7 +76,7 @@ class Api::V1::BlocksController < Api::V1::BaseController
     end
   end
 
-  api :DELETE, '/v1/sessions/:session_id/slots/:slot_id/blocks/:id', 'api.docs.resources.slots.destroy.short_desc'
+  api :DELETE, '/v1/sessions/:session_id/slots/:slot_id/blocks/:id', 'api.docs.resources.blocks.destroy.short_desc'
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def destroy

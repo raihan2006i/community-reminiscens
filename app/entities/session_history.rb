@@ -1,4 +1,4 @@
-class Block < ActiveRecord::Base
+class SessionHistory < ActiveRecord::Base
   # Start external modules declaration
   #
   # Remove this line and start writing your code here
@@ -22,16 +22,16 @@ class Block < ActiveRecord::Base
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  belongs_to :blockable, polymorphic: true
+  belongs_to :session
   belongs_to :slot
-  has_and_belongs_to_many :multimedia
+  belongs_to :block
   #
   # End relations declaration
 
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  validates :blockable, :slot, presence: true
+  validates :session, :slot, :block, presence: true
   #
   # End validations declaration
 
