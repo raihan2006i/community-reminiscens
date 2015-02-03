@@ -2,6 +2,7 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 require 'csv'
+require 'stuff-classifier'
 
 puts 'Creating default AdminUser email: admin@reminiscens.com | password: 12345678'
 if AdminUser.where(email: 'admin@reminiscens.com').exists?
@@ -55,6 +56,7 @@ theme_texts.each do |theme_name|
   themes << theme
 end
 
+questions = []
 question_seed_rows.each do |row|
   content_text = row[0]
   theme_text = row[2]
@@ -67,4 +69,10 @@ question_seed_rows.each do |row|
     puts "Updating question: #{question.content}"
   end
   question.save
+  questions << question
 end
+
+questions.each do |question|
+  question.retrain_machine(true)
+end
+THEMES_BAYES_TRAINER.save_state

@@ -38,7 +38,7 @@ class Question < ActiveRecord::Base
   # Start callbacks declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  after_update :retrain_machine
   #
   # End callbacks declaration
 
@@ -52,7 +52,31 @@ class Question < ActiveRecord::Base
   # Start class method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  def retrain_machine(force = false)
+    if force || (theme_id_changed? && theme.present?)
+      begin
+        if theme.present?
+          THEMES_BAYES_TRAINER.train theme.name, content
+          update_column(:trained, true)
+          THEMES_BAYES_TRAINER.save_state
+        end
+      rescue Exception => ex
+        p ex.message
+      end
+    end
+  end
+
+  def train_machine(save_sate = false)
+    if !trained? && theme.present?
+      begin
+        THEMES_BAYES_TRAINER.train theme.name, content
+        update_attribute(:trained, true)
+        THEMES_BAYES_TRAINER.save_state if save_sate
+      rescue
+        p 'Exception'
+      end
+    end
+  end
   #
   # End class method declaration
 
@@ -67,7 +91,6 @@ class Question < ActiveRecord::Base
   # Please try to maintain alphabetical order
   #
   private
-  # Remove this line and start writing your code here
   #
   # End private methods
 end

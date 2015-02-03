@@ -26,6 +26,9 @@ ActiveAdmin.register Question do
     id_column
     column :content
     column :theme
+    column :learned_theme do |question|
+      THEMES_BAYES_TRAINER.classify(question.content)
+    end
     column :creator
     column :created_at
     translation_status
@@ -39,5 +42,5 @@ ActiveAdmin.register Question do
   end
 
   menu url: -> { admin_questions_path(locale: I18n.locale) }
-  permit_params :content, :source, translations_attributes: [:id, :locale, :content, :_destroy]
+  permit_params :content, :theme_id, :source, translations_attributes: [:id, :locale, :content, :_destroy]
 end

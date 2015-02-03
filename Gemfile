@@ -83,3 +83,8 @@ gem 'rabl-rails', '~> 0.4.0'
 gem 'paperclip', '~> 4.2.0'
 
 gem 'rails_12factor', group: :production
+
+# A general classifier module to allow Bayesian and other types of classifications.
+gem 'stuff-classifier', github: 'alexandru/stuff-classifier'
+
+gem 'redis-rails'

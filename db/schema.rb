@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119132959) do
+ActiveRecord::Schema.define(version: 20150120173929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(version: 20150119132959) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "theme_id",     default: 0
+    t.boolean  "trained",      default: false
   end
 
   add_index "questions", ["creator_id", "creator_type"], name: "index_questions_on_creator_id_and_creator_type", using: :btree
