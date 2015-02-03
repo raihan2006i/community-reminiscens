@@ -1,1 +1,1 @@
-attributes :id, :created_at, :updated_at
+attributes :id, :blockable_id, :blockable_type, :created_at, :updated_at
