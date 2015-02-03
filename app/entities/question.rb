@@ -1,7 +1,8 @@
 class Question < ActiveRecord::Base
   # Start external modules declaration
   #
-  # Remove this line and start writing your code here
+  # Translated fields with globalize and for active admin
+  active_admin_translates :content
   #
   # End external modules declaration
 
@@ -22,14 +23,15 @@ class Question < ActiveRecord::Base
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  belongs_to :creator, polymorphic: true
+  belongs_to :theme
   #
   # End relations declaration
 
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  validates :content, presence: true
   #
   # End validations declaration
 

@@ -12,7 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20150202175641) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -96,11 +95,11 @@ ActiveRecord::Schema.define(version: 20150202175641) do
   add_index "comments", ["commenter_id", "commenter_type"], name: "index_comments_on_commenter_id_and_commenter_type", using: :btree
 
   create_table "context_translations", force: true do |t|
-    t.integer  "context_id"
+    t.integer  "context_id", null: false
     t.string   "locale",     null: false
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "context_translations", ["context_id"], name: "index_context_translations_on_context_id", using: :btree
@@ -167,6 +166,17 @@ ActiveRecord::Schema.define(version: 20150202175641) do
 
   add_index "people_roles", ["person_id", "role_id"], name: "index_people_roles_on_person_id_and_role_id", using: :btree
 
+  create_table "question_translations", force: true do |t|
+    t.integer  "question_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "content"
+  end
+
+  add_index "question_translations", ["locale"], name: "index_question_translations_on_locale", using: :btree
+  add_index "question_translations", ["question_id"], name: "index_question_translations_on_question_id", using: :btree
+
   create_table "questions", force: true do |t|
     t.string   "content"
     t.string   "source",       default: "contributed"
@@ -174,9 +184,11 @@ ActiveRecord::Schema.define(version: 20150202175641) do
     t.string   "creator_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "theme_id",     default: 0
   end
 
   add_index "questions", ["creator_id", "creator_type"], name: "index_questions_on_creator_id_and_creator_type", using: :btree
+  add_index "questions", ["theme_id"], name: "index_questions_on_theme_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -252,11 +264,11 @@ ActiveRecord::Schema.define(version: 20150202175641) do
   add_index "story_fragments", ["story_id"], name: "index_story_fragments_on_story_id", using: :btree
 
   create_table "theme_translations", force: true do |t|
-    t.integer  "theme_id"
+    t.integer  "theme_id",   null: false
     t.string   "locale",     null: false
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "theme_translations", ["locale"], name: "index_theme_translations_on_locale", using: :btree
