@@ -43,4 +43,18 @@ ActiveAdmin.register Question do
 
   menu url: -> { admin_questions_path(locale: I18n.locale) }
   permit_params :content, :theme_id, :source, translations_attributes: [:id, :locale, :content, :_destroy]
+
+  show do
+    panel I18n.t('active_admin.details', model: I18n.t('activerecord.model.question')) do
+      attributes_table_for resource do
+        row :id
+        row :content
+        row :theme
+        row(:source) { resource.source.humanize }
+        row :creator
+        row :created_at
+        row :updated_at
+      end
+    end
+  end
 end

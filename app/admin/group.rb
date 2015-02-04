@@ -30,7 +30,7 @@ ActiveAdmin.register Group do
     actions
   end
 
-  menu priority: 6
+  menu parent: 'Settings', priority: 6
   permit_params :name, :manager_id
 
   show do

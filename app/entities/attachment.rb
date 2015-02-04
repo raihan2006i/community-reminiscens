@@ -30,6 +30,7 @@ class Attachment < ActiveRecord::Base
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
+  validates_attachment :media, presence: true
   do_not_validate_attachment_file_type :media
   #
   # End validations declaration

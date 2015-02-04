@@ -40,11 +40,11 @@ ActiveAdmin.register Theme do
     end
   end
 
-  menu priority: 3, url: -> { admin_themes_path(locale: I18n.locale) }
+  menu parent: 'Settings', priority: 3, url: -> { admin_themes_path(locale: I18n.locale) }
   permit_params :name, :start_age, :end_age, :source, translations_attributes: [:id, :locale, :name, :_destroy]
 
   show do
-    panel 'Theme Details' do
+    panel I18n.t('active_admin.details', model: I18n.t('activerecord.model.theme')) do
       attributes_table_for resource do
         row :id
         row :name

@@ -334,6 +334,22 @@ en:
       story_fragment: Fragments
       comment: Comments
       attachment: Attachments
+      admin_user: Admin Users
+      caregiver: Caregivers
+      guest: Guests
+      question: Questions
+      story: Stories
+    model:
+      context: Context
+      theme: Theme
+      story_fragment: Fragment
+      comment: Comment
+      attachment: Attachment
+      admin_user: Admin User
+      caregiver: Caregiver
+      guest: Guest
+      question: Question
+      story: Story
     attributes:
       context:
         name: Name

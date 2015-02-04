@@ -29,7 +29,23 @@ ActiveAdmin.register AdminUser do
     end
   end
 
-  menu priority: 2, url: -> { admin_admin_users_path(locale: I18n.locale) }
+  menu parent: 'Settings', priority: 2, url: -> { admin_admin_users_path(locale: I18n.locale) }
   permit_params :email, :password, :password_confirmation
+
+  show do
+    panel I18n.t('active_admin.details', model: I18n.t('activerecord.model.admin_user')) do
+      attributes_table_for resource do
+        row :id
+        row :email
+        row :sign_in_count
+        row :current_sign_in_at
+        row :current_sign_in_ip
+        row :last_sign_in_at
+        row :last_sign_in_ip
+        row :created_at
+        row :updated_at
+      end
+    end
+  end
 
 end

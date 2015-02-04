@@ -38,11 +38,11 @@ ActiveAdmin.register Context do
     end
   end
 
-  menu priority: 4, url: -> { admin_contexts_path(locale: I18n.locale) }
+  menu parent: 'Settings', priority: 4, url: -> { admin_contexts_path(locale: I18n.locale) }
   permit_params :name, :source, translations_attributes: [:id, :locale, :name, :_destroy]
 
   show do
-    panel 'Context Details' do
+    panel I18n.t('active_admin.details', model: I18n.t('activerecord.model.context')) do
       attributes_table_for resource do
         row :id
         row :name

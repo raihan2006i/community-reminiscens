@@ -25,25 +25,26 @@ ActiveAdmin.register Story do
       f.input :telling_date
       f.input :other_theme
       f.input :other_context
-
     end
-    if f.object.new_record?
-      f.inputs 'Fragments' do
-        f.has_many :story_fragments, id: 'fragments' do |fragment_builder|
-          fragment_builder.input :content, as: :text
-        end
-      end
 
-      f.inputs 'Attachments' do
-        f.has_many :attachments, id: 'attachments' do |attachment_builder|
-          attachment_builder.input :media, as: :file
-        end
+    f.inputs 'Fragments' do
+      f.has_many :story_fragments, id: 'fragments' do |fragment_builder|
+        fragment_builder.input :content, as: :text
+        fragment_builder.input :_destroy, as: :boolean, label: 'Remove'
       end
+    end
 
-      f.inputs 'Comments' do
-        f.has_many :comments, id: 'comments' do |comment_builder|
-          comment_builder.input :comment, as: :text
-        end
+    f.inputs 'Attachments' do
+      f.has_many :attachments, id: 'attachments' do |attachment_builder|
+        attachment_builder.input :media, as: :file, hint: link_to(attachment_builder.object.file_name, attachment_builder.object.url, target: '_blank', download: attachment_builder.object.url)
+        attachment_builder.input :_destroy, as: :boolean, label: 'Remove'
+      end
+    end
+
+    f.inputs 'Comments' do
+      f.has_many :comments, id: 'comments' do |comment_builder|
+        comment_builder.input :comment, as: :text
+        comment_builder.input :_destroy, as: :boolean, label: 'Remove'
       end
     end
     f.actions
@@ -69,6 +70,21 @@ ActiveAdmin.register Story do
 
   menu priority: 8, url: -> { admin_stories_path(locale: I18n.locale) }
   permit_params :teller_id, :theme_id, :context_id, :telling_date, :other_theme, :other_context, story_fragments_attributes: [:id, :content, :_destroy], attachments_attributes: [:id, :media, :_destroy], comments_attributes: [:id, :comment, :_destroy]
+
+  show do
+    panel I18n.t('active_admin.details', model: I18n.t('activerecord.model.story')) do
+      attributes_table_for resource do
+        row :id
+        row :teller
+        row :telling_date
+        row :theme
+        row :context
+        row :creator
+        row :created_at
+        row :updated_at
+      end
+    end
+  end
 
   sidebar 'Story Details', only: [:show, :edit] do
     ul do

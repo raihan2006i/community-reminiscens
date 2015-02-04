@@ -41,11 +41,11 @@ ActiveAdmin.register Caregiver do
     actions
   end
 
-  menu priority: 5
+  menu parent: 'Settings', priority: 5
   permit_params :first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :email, :password, :password_confirmation
 
   show do
-    panel 'Caregiver Details' do
+    panel I18n.t('active_admin.details', model: I18n.t('activerecord.model.caregiver')) do
       attributes_table_for resource do
         row :id
         row :title

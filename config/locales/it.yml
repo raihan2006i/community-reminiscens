@@ -313,6 +313,22 @@ it:
       story_fragment: Frammenti
       comment: Commenti
       attachment: Allegati
+      admin_user: Admin Utenti
+      caregiver: Badanti
+      guest: Ospiti
+      question: Domande
+      story: Storie
+    model:
+      context: Contesto
+      theme: Tema
+      story_fragment: Frammento
+      comment: Commento
+      attachment: Attaccamento
+      admin_user: Admin Utente
+      caregiver: Badante
+      guest: Ospite
+      question: Domanda
+      story: Storia
     attributes:
       context:
         name: Nome

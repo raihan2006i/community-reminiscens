@@ -30,11 +30,11 @@ ActiveAdmin.register Guest do
     actions
   end
 
-  menu priority: 7
+  menu parent: 'Settings', priority: 7
   permit_params :first_name, :last_name, :title, :birthday, :address, :city, :country, :phone, :mobile, :group_id
 
   show do
-    panel 'Guest Details' do
+    panel I18n.t('active_admin.details', model: I18n.t('activerecord.model.guest')) do
       attributes_table_for resource do
         row :id
         row :title
