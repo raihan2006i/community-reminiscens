@@ -318,6 +318,124 @@ en:
             full_desc:
             params:
             errors:
+        sessions:
+          short_desc: Sessions
+          common:
+            params:
+              title: Title of the session
+              start_at: Starting time of the session. Start at should be in YYYY-MM-DD HH:MM:SS format
+              end_at: Ending time of the session. End at should be in YYYY-MM-DD HH:MM:SS format
+              status: Status of the session. Status can have only value 'not_started', 'ongoing', 'finished'
+          index:
+            short_desc: Returns available sessions.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a session.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a session.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update a session.
+            full_desc:
+            params:
+            errors:
+          destroy:
+            short_desc: Delete a session.
+            full_desc:
+            params:
+            errors:
+        slots:
+          short_desc: Slots
+          common:
+            params:
+              title: Title of the slot
+              duration: Duration of the slot. duration should be in minutes
+              teller_id: Teller id of the slot. Teller id is a Guest id
+          index:
+            short_desc: Returns available slots.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a slot.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a slot.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update a slot.
+            full_desc:
+            params:
+            errors:
+          destroy:
+            short_desc: Delete a slot.
+            full_desc:
+            params:
+            errors:
+        blocks:
+          short_desc: Blocks
+          common:
+            params:
+              blockable_id: Id of the block
+              blockable_type: Type of the block. Type can be Story or Question
+          index:
+            short_desc: Returns available blocks.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a block.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a block.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Update a block.
+            full_desc:
+            params:
+            errors:
+          destroy:
+            short_desc: Delete a block.
+            full_desc:
+            params:
+            errors:
+        session_histories:
+          short_desc: Session histories
+          common:
+            params:
+              session_id: Id of the session
+              slot_id: Id of the slot
+              block_id: Id of the block
+          index:
+            short_desc: Returns available session_histories.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Returns a session history.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Create a session history.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: The given resource could not be found.
       forbidden: The requested action was forbidden.
@@ -339,6 +457,10 @@ en:
       guest: Guests
       question: Questions
       story: Stories
+      session: Sessions
+      slot: Slots
+      block: Blocks
+      session_history: Session Histories
     model:
       context: Context
       theme: Theme
@@ -350,6 +472,10 @@ en:
       guest: Guest
       question: Question
       story: Story
+      session: Session
+      slot: Slot
+      block: Block
+      session_history: Session History
     attributes:
       context:
         name: Name

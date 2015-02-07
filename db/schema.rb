@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202175641) do
+ActiveRecord::Schema.define(version: 20150204172557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,9 +71,12 @@ ActiveRecord::Schema.define(version: 20150202175641) do
     t.string   "blockable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.string   "creator_type"
   end
 
   add_index "blocks", ["blockable_id", "blockable_type"], name: "index_blocks_on_blockable_id_and_blockable_type", using: :btree
+  add_index "blocks", ["creator_id", "creator_type"], name: "index_blocks_on_creator_id_and_creator_type", using: :btree
 
   create_table "blocks_multimedia", id: false, force: true do |t|
     t.integer "block_id"
@@ -96,11 +99,11 @@ ActiveRecord::Schema.define(version: 20150202175641) do
   add_index "comments", ["commenter_id", "commenter_type"], name: "index_comments_on_commenter_id_and_commenter_type", using: :btree
 
   create_table "context_translations", force: true do |t|
-    t.integer  "context_id", null: false
+    t.integer  "context_id"
     t.string   "locale",     null: false
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
   end
 
   add_index "context_translations", ["context_id"], name: "index_context_translations_on_context_id", using: :btree
@@ -186,6 +189,7 @@ ActiveRecord::Schema.define(version: 20150202175641) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "theme_id",     default: 0
+    t.string   "title"
     t.boolean  "trained",      default: false
   end
 
@@ -219,6 +223,7 @@ ActiveRecord::Schema.define(version: 20150202175641) do
     t.string   "creator_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   add_index "sessions", ["creator_id", "creator_type"], name: "index_sessions_on_creator_id_and_creator_type", using: :btree
@@ -246,6 +251,7 @@ ActiveRecord::Schema.define(version: 20150202175641) do
     t.string   "creator_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   add_index "stories", ["context_id"], name: "index_stories_on_context_id", using: :btree
@@ -266,11 +272,11 @@ ActiveRecord::Schema.define(version: 20150202175641) do
   add_index "story_fragments", ["story_id"], name: "index_story_fragments_on_story_id", using: :btree
 
   create_table "theme_translations", force: true do |t|
-    t.integer  "theme_id",   null: false
+    t.integer  "theme_id"
     t.string   "locale",     null: false
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
   end
 
   add_index "theme_translations", ["locale"], name: "index_theme_translations_on_locale", using: :btree

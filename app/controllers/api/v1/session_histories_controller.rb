@@ -16,15 +16,12 @@ class Api::V1::SessionHistoriesController < Api::V1::BaseController
   end
 
   def_param_group :common do
+
+  end
+  def_param_group :create_session_history do
     param :session_id, :number, desc: 'api.docs.resources.sessions.common.params.session_id', required: true
     param :slot_id, :number, desc: 'api.docs.resources.slots.common.params.slot_id', required: true
     param :block_id, :number, desc: 'api.docs.resources.blocks.common.params.block_id', required: true
-  end
-  def_param_group :create_session_history do
-    param_group :common
-  end
-
-  def_param_group :update_session_history do
     param_group :common
   end
 

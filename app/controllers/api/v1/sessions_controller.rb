@@ -22,15 +22,17 @@ class Api::V1::SessionsController < Api::V1::BaseController
   end
 
   def_param_group :create_session do
-    param :start_at, :string, desc: 'api.docs.resources.sessions.common.params.start_at', required: true
-    param :end_at, :string, desc: 'api.docs.resources.sessions.common.params.end_at', required: true
+    param :title, :string, desc: 'api.docs.resources.sessions.create.params.title', required: true
+    param :start_at, :string, desc: 'api.docs.resources.sessions.create.params.start_at', required: true
+    param :end_at, :string, desc: 'api.docs.resources.sessions.create.params.end_at', required: true
     param_group :common
   end
 
   def_param_group :update_session do
-    param :start_at, :string, desc: 'api.docs.resources.sessions.common.params.start_at', required: false
-    param :end_at, :string, desc: 'api.docs.resources.sessions.common.params.end_at', required: false
-    param :status, [Session::STATUS_NOT_STARTED, Session::STATUS_ONGOING, Session::STATUS_FINISHED], desc: 'api.docs.resources.sessions.common.params.end_at', required: false
+    param :title, :string, desc: 'api.docs.resources.sessions.update.params.title', required: false
+    param :start_at, :string, desc: 'api.docs.resources.sessions.update.params.start_at', required: false
+    param :end_at, :string, desc: 'api.docs.resources.sessions.update.params.end_at', required: false
+    param :status, [Session::STATUS_NOT_STARTED, Session::STATUS_ONGOING, Session::STATUS_FINISHED], desc: 'api.docs.resources.sessions.update.params.status', required: false
     param_group :common
   end
 
@@ -97,11 +99,11 @@ class Api::V1::SessionsController < Api::V1::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def permitted_create_params
-      params.permit(:start_at, :end_at)
+      params.permit(:title, :start_at, :end_at)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def permitted_update_params
-      params.permit(:start_at, :end_at, :status)
+      params.permit(:title, :start_at, :end_at, :status)
     end
 end

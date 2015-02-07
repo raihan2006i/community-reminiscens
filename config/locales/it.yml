@@ -297,6 +297,124 @@ it:
             full_desc:
             params:
             errors:
+        sessions:
+            short_desc: Sessioni
+            common:
+              params:
+                title: Titolo della sessione
+                start_at: Tempo della sessione di partenza. Inizia dovrebbe essere nel formato YYYY-MM-DD HH:MM:SS
+                end_at: Tempo della sessione termina. Fine a dovrebbe essere nel formato YYYY-MM-DD HH:MM:SS
+                status: Stato della sessione. Stato può avere solo un valore 'not_started', 'in_progress', 'finished'
+            index:
+              short_desc: Restituisce sessioni disponibili.
+              full_desc:
+              params:
+              errors:
+            show:
+              short_desc: Returns a session.
+              full_desc:
+              params:
+              errors:
+            create:
+              short_desc: Restituisce una sessione.
+              full_desc:
+              params:
+              errors:
+            update:
+              short_desc: Aggiornare una sessione.
+              full_desc:
+              params:
+              errors:
+            destroy:
+              short_desc: Eliminare una sessione.
+              full_desc:
+              params:
+              errors:
+        slots:
+          short_desc: Slots
+          common:
+            params:
+              title: Titolo degli slot
+              duration: Durata della fessura. durata dovrebbe essere in minuti
+              teller_id: Teller id dello slot. Teller id è un id Ospite
+          index:
+            short_desc: Restituisce slot disponibili.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce una slot.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creare una slot.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Aggiornamento di una slot.
+            full_desc:
+            params:
+            errors:
+          destroy:
+            short_desc: Eliminare un slot.
+            full_desc:
+            params:
+            errors:
+        blocks:
+          short_desc: Blocchi
+          common:
+            params:
+              blockable_id: Id del blocco
+              blockable_type: Tipo del blocco. Tipo può essere Story o Question
+          index:
+            short_desc: Restituisce blocchi disponibili.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce un blocco.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creare un blocco.
+            full_desc:
+            params:
+            errors:
+          update:
+            short_desc: Aggiornare un blocco.
+            full_desc:
+            params:
+            errors:
+          destroy:
+            short_desc: Eliminare un blocco.
+            full_desc:
+            params:
+            errors:
+        session_histories:
+          short_desc: Storie di sessione
+          common:
+            params:
+              session_id: Id della sessione
+              slot_id: Id della slot
+              block_id: Id del blocco
+          index:
+            short_desc: Restituisce storie sessione disponibili.
+            full_desc:
+            params:
+            errors:
+          show:
+            short_desc: Restituisce una cronologia della sessione.
+            full_desc:
+            params:
+            errors:
+          create:
+            short_desc: Creare una cronologia della sessione.
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: La risorsa data non è stato trovato.
       forbidden: L'azione richiesta era proibito.
@@ -318,6 +436,10 @@ it:
       guest: Ospiti
       question: Domande
       story: Storie
+      session: Sessioni
+      slot: Slots
+      block: Blocchi
+      session_history: Storie di sessione
     model:
       context: Contesto
       theme: Tema
@@ -329,6 +451,10 @@ it:
       guest: Ospite
       question: Domanda
       story: Storia
+      session: Sessione
+      slot: Slot
+      block: Blocco
+      session_history: Cronologia della sessione
     attributes:
       context:
         name: Nome

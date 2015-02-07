@@ -26,12 +26,14 @@ class Api::V1::SlotsController < Api::V1::BaseController
   def_param_group :create_slot do
     param :title, :string, desc: 'api.docs.resources.slots.common.params.title', required: true
     param :duration, :number, desc: 'api.docs.resources.slots.common.params.duration', required: true
+    param :teller_id, :number, desc: 'api.docs.resources.slots.common.params.teller_id', required: true
     param_group :common
   end
 
   def_param_group :update_slot do
     param :title, :string, desc: 'api.docs.resources.slots.common.params.title', required: false
     param :duration, :number, desc: 'api.docs.resources.slots.common.params.duration', required: false
+    param :teller_id, :number, desc: 'api.docs.resources.slots.common.params.teller_id', required: false
     param_group :common
   end
 

@@ -53,7 +53,13 @@ class Session < ActiveRecord::Base
   # Start class method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  def self.status_options
+    [STATUS_NOT_STARTED, STATUS_ONGOING, STATUS_FINISHED]
+  end
+
+  def self.status_options_for_dropdown
+    status_options.sort.collect{|s| [s.humanize, s]}
+  end
   #
   # End class method declaration
 

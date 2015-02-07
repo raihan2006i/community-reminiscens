@@ -22,6 +22,7 @@ class Block < ActiveRecord::Base
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
+  belongs_to :creator, polymorphic: true
   belongs_to :blockable, polymorphic: true
   belongs_to :slot
   has_and_belongs_to_many :multimedia
