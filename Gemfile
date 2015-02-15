@@ -88,3 +88,5 @@ gem 'rails_12factor', group: :production
 gem 'stuff-classifier', github: 'alexandru/stuff-classifier'
 
 gem 'redis-rails'
+
+gem 'pg_search'

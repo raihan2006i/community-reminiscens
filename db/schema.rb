@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204172557) do
+ActiveRecord::Schema.define(version: 20150215192652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,11 +99,11 @@ ActiveRecord::Schema.define(version: 20150204172557) do
   add_index "comments", ["commenter_id", "commenter_type"], name: "index_comments_on_commenter_id_and_commenter_type", using: :btree
 
   create_table "context_translations", force: true do |t|
-    t.integer  "context_id"
+    t.integer  "context_id", null: false
     t.string   "locale",     null: false
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "context_translations", ["context_id"], name: "index_context_translations_on_context_id", using: :btree
@@ -189,8 +189,8 @@ ActiveRecord::Schema.define(version: 20150204172557) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "theme_id",     default: 0
-    t.string   "title"
     t.boolean  "trained",      default: false
+    t.string   "title"
   end
 
   add_index "questions", ["creator_id", "creator_type"], name: "index_questions_on_creator_id_and_creator_type", using: :btree
@@ -272,11 +272,11 @@ ActiveRecord::Schema.define(version: 20150204172557) do
   add_index "story_fragments", ["story_id"], name: "index_story_fragments_on_story_id", using: :btree
 
   create_table "theme_translations", force: true do |t|
-    t.integer  "theme_id"
+    t.integer  "theme_id",   null: false
     t.string   "locale",     null: false
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "theme_translations", ["locale"], name: "index_theme_translations_on_locale", using: :btree

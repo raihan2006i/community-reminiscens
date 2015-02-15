@@ -5,6 +5,13 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
+      namespace :kb do
+        resources :questions, except: [:index, :show, :new, :create, :edit, :update, :destroy] do
+          collection do
+            get :search
+          end
+        end
+      end
       resources :caregivers do
         collection do
           post :authorize

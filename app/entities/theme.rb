@@ -56,7 +56,7 @@ class Theme < ActiveRecord::Base
   # Start class method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  default_scope { includes(:translations) }
   #
   # End class method declaration
 
