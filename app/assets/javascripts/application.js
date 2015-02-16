@@ -12,5 +12,20 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require angular
+//= require angular-animate
+//= require angular-loader
+//= require angular-resource
+//= require angular-sanitize
+//= require angular-aria
+//= require angular/angular-ui-router
+//= require angular/angular-material
+//= require pusher/pusher
+//= require pusher/pusher-angular
+//= require underscore
+//= require_tree ./directives/
+//= require_tree ./modules/
+//= require_tree ./services/
+//= require_tree ./controllers/
+//= require app
+

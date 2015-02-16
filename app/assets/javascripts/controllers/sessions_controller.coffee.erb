@@ -1,0 +1,8 @@
+@SessionsIndexCtrl = ($scope, $state, Session, $log) ->
+    Session.index (data) ->
+        $scope.sessions = data.response
+        return
+
+    return
+
+@SessionsIndexCtrl.$inject = ['$scope', '$state', 'Session', '$log']

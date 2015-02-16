@@ -1,12 +1,12 @@
 class Api::V1::SessionsController < Api::V1::BaseController
   # First we need to authorize_user_access
-  before_filter :authorize_user_access
+  # before_filter :authorize_user_access
   # Then we will check access_granted? and will response accordingly
-  before_filter :restrict_api_access
+  # before_filter :restrict_api_access
 
-  before_action :set_session, only: [:show, :update, :destroy]
+  before_action :set_session, only: [:show, :update, :destroy, :start]
 
-  authorize_resource
+  # authorize_resource
 
   respond_to :json
 
@@ -65,6 +65,12 @@ class Api::V1::SessionsController < Api::V1::BaseController
     else
       render_error!('invalid_resource', I18n.t('api.errors.invalid_resource'), 422 , :unprocessable_entity, @session.errors)
     end
+  end
+
+  api :POST, '/v1/sessions/:session_id/start', 'api.docs.resources.sessions.start.short_desc'
+  def start
+    @session.start!
+    render action: :show
   end
 
   api :PUT, '/v1/sessions/:id', 'api.docs.resources.sessions.update.short_desc'

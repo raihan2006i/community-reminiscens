@@ -46,7 +46,19 @@ class Block < ActiveRecord::Base
   # Start instance method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  def live
+    session_history = SessionHistory.create({
+      session_id: slot.session_id,
+      slot_id: slot_id,
+      block_id: id
+    })
+
+    begin
+      Pusher.trigger("session.#{slot.session_id}", 'live', blockable.to_json)
+    rescue Pusher::Error => e
+      p e.message
+    end
+  end
   #
   # End instance method declaration
 

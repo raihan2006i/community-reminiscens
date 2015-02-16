@@ -6,7 +6,7 @@ class Api::V1::BlocksController < Api::V1::BaseController
 
   before_action :set_session
   before_action :set_slot
-  before_action :set_block, only: [:show, :update, :destroy]
+  before_action :set_block, only: [:show, :update, :destroy, :live]
 
   authorize_resource :session
   authorize_resource :slot, through: :session
@@ -47,6 +47,12 @@ class Api::V1::BlocksController < Api::V1::BaseController
 
   api :GET, '/v1/sessions/:session_id/slots/:slot_id/blocks/:id', 'api.docs.resources.blocks.show.short_desc'
   def show
+  end
+
+  api :POST, '/v1/sessions/:session_id/slots/:slot_id/blocks/:id/live', 'api.docs.resources.blocks.live.short_desc'
+  def live
+    @block.live
+    render json: {success: true}
   end
 
   api :POST, '/v1/sessions/:session_id/slots/:slot_id/blocks', 'api.docs.resources.blocks.create.short_desc'
