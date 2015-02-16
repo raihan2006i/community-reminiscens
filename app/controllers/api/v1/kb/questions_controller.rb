@@ -4,9 +4,7 @@ class Api::V1::Kb::QuestionsController < Api::V1::BaseController
   # Then we will check access_granted? and will response accordingly
   before_filter :restrict_api_access
 
-  authorize_resource :session
-  authorize_resource :slot, through: :session
-  authorize_resource :block, through: :slot
+  authorize_resource :question
 
   respond_to :json
 

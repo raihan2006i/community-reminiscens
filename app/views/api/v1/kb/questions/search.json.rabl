@@ -8,4 +8,3 @@ end
 node :pagination do
   pagination_information(@questions)
 end
-

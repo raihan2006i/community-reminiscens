@@ -13,6 +13,12 @@ Rails.application.routes.draw do
             get :search
           end
         end
+        resources :multimedia, except: [:index, :show, :new, :create, :edit, :update, :destroy] do
+          collection do
+            get :local_search
+            get :thirdparty_search
+          end
+        end
       end
       resources :caregivers do
         collection do

@@ -89,10 +89,12 @@ gem 'stuff-classifier', github: 'alexandru/stuff-classifier'
 
 gem 'redis-rails'
 
+gem 'pg_search'
+
+gem 'google-search', '~> 1.0.3'
+
 gem 'pusher'
 
 gem 'angularjs-rails'
 
 gem 'underscore-rails'
-
-gem 'pg_search'
