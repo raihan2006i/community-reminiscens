@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
   # Start external modules declaration
   #
+  include PgSearch
   # Translated fields with globalize and for active admin
   active_admin_translates :content
   #
@@ -45,13 +46,6 @@ class Question < ActiveRecord::Base
   # Start instance method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
-  #
-  # End instance method declaration
-
-  # Start class method declaration
-  # Please try to maintain alphabetical order
-  #
   def retrain_machine(force = false)
     if force || (theme_id_changed? && theme.present?)
       begin
@@ -77,6 +71,14 @@ class Question < ActiveRecord::Base
       end
     end
   end
+  #
+  # End instance method declaration
+
+  # Start class method declaration
+  # Please try to maintain alphabetical order
+  #
+  default_scope { includes(:translations) }
+  pg_search_scope :search, against: :content, associated_against: { theme: :name }
   #
   # End class method declaration
 

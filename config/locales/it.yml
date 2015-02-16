@@ -415,6 +415,14 @@ it:
             full_desc:
             params:
             errors:
+        questions:
+          short_desc: Domande
+          search:
+            short_desc: Cerca risposte
+            full_desc:
+            params:
+              query: Interrogare stringa da cercare domande. Ricerca corrisponderà questa stringa di query con il contenuto di domanda e il tema
+            errors:
     errors:
       not_found: La risorsa data non è stato trovato.
       forbidden: L'azione richiesta era proibito.

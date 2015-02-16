@@ -94,3 +94,5 @@ gem 'pusher'
 gem 'angularjs-rails'
 
 gem 'underscore-rails'
+
+gem 'pg_search'

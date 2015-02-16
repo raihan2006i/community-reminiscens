@@ -436,6 +436,14 @@ en:
             full_desc:
             params:
             errors:
+        questions:
+          short_desc: Questions
+          search:
+            short_desc: Search questions
+            full_desc:
+            params:
+              query: Query string to search questions. search will match this query string with question's content and theme
+            errors:
     errors:
       not_found: The given resource could not be found.
       forbidden: The requested action was forbidden.
