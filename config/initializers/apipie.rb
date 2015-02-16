@@ -7,7 +7,14 @@ Apipie.configure do |config|
   config.api_controllers_matcher = "#{Rails.root}/app/controllers/api/**/*.rb"
   config.default_version = '1'
   config.use_cache = false
-  config.app_info = 'Community Reminiscens API documentation.'
+  config.app_info = <<-EOS
+    Community Reminiscens API documentation.
+    All API methods require an API token in the standard HTTPAuthorization header. Format of HTTPAuthorization header is given below
+    ==== The HTTPAuthorization header format
+        Authorization: Token token="API_TOKEN"
+    ==== Example HTTPAuthorization header
+        Authorization: Token token="428bf40f2c7bf1fed56b0e01c1165a6a"
+    EOS
   config.languages = %w(en it)
   config.default_locale = 'en'
   config.locale = lambda { |loc| loc ? I18n.locale = loc : I18n.locale }
