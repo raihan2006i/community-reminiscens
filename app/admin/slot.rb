@@ -1,7 +1,9 @@
 ActiveAdmin.register Slot do
+  belongs_to :session, optional: true
+
   controller do
     def create
-      @slot = Slot.new permitted_params[:slot]
+      @slot = parent.slots.new permitted_params[:slot]
       @slot.creator = current_admin_user
       create!
     end
@@ -31,8 +33,12 @@ ActiveAdmin.register Slot do
     column :teller
     column :creator
     column :created_at
+    actions defaults: false do |slot|
+      link_to 'Blocks', admin_slot_blocks_path(slot)
+    end
   end
 
-  menu priority: 10, url: -> { admin_slots_path(locale: I18n.locale) }
+  menu false
+  navigation_menu :default
   permit_params :title, :duration, :teller_id
 end

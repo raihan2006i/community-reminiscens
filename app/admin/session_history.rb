@@ -1,4 +1,5 @@
 ActiveAdmin.register SessionHistory do
+  belongs_to :session, optional: true
 
   filter :title
   filter :created_at
@@ -25,5 +26,6 @@ ActiveAdmin.register SessionHistory do
     end
   end
 
-  menu priority: 12, url: -> { admin_session_histories_path(locale: I18n.locale) }
+  menu false
+  navigation_menu :default
 end

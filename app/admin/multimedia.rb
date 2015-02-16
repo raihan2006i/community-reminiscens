@@ -20,6 +20,8 @@ ActiveAdmin.register Multimedia do
     actions
   end
 
+  menu parent: 'KB'
+
   show do
     panel I18n.t('active_admin.details', model: I18n.t('activerecord.model.multimedia')) do
       attributes_table_for resource do

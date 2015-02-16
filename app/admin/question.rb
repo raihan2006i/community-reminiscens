@@ -41,7 +41,7 @@ ActiveAdmin.register Question do
     end
   end
 
-  menu url: -> { admin_questions_path(locale: I18n.locale) }
+  menu url: -> { admin_questions_path(locale: I18n.locale) }, parent: 'KB'
   permit_params :content, :theme_id, :source, translations_attributes: [:id, :locale, :content, :_destroy]
 
   show do

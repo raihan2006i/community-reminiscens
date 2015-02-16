@@ -1,7 +1,9 @@
 ActiveAdmin.register Block do
+  belongs_to :slot, optional: true
+
   controller do
     def create
-      @block = Block.new permitted_params[:block]
+      @block = parent.blocks.new permitted_params[:block]
       @block.creator = current_admin_user
       create!
     end
@@ -22,6 +24,7 @@ ActiveAdmin.register Block do
     id_column
     column :blockable
     column :created_at
+
   end
 
   show do
@@ -37,7 +40,8 @@ ActiveAdmin.register Block do
     end
   end
 
-  menu priority: 11, url: -> { admin_blocks_path(locale: I18n.locale) }
+  menu false
+  navigation_menu :default
   permit_params :blockable
 
 end

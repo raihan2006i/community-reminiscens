@@ -27,6 +27,7 @@ ActiveAdmin.register Session do
   index do
     selectable_column
     id_column
+    column :title
     column :start_at
     column :end_at
     column :status do |session|
@@ -34,6 +35,9 @@ ActiveAdmin.register Session do
     end
     column :creator
     column :created_at
+    actions defaults: false do |session|
+      link_to('Slots', admin_session_slots_path(session)) + ' ' + link_to('Histories', admin_session_session_histories_path(session))
+    end
   end
 
   show do
