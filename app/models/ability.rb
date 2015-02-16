@@ -25,5 +25,7 @@ class Ability
     can :manage, Session
     can :manage, Slot
     can :manage, Block
+    can :manage, Multimedia
+    can :manage, Question
   end
 end

@@ -423,6 +423,22 @@ it:
             params:
               query: Interrogare stringa da cercare domande. Ricerca corrisponderà questa stringa di query con il contenuto di domanda e il tema
             errors:
+        multimedia:
+          short_desc: Multimedia
+          common:
+            params:
+              query: Stringa di query per la ricerca multimediale
+              type: Tipo di multimedia
+          local_search:
+            short_desc: Cerca multimediali in database locale
+            full_desc:
+            params:
+            errors:
+          thirdparty_search:
+            short_desc: Cerca multimediali nei motori di ricerca thirdparty. Per ora cerchiamo solo attraverso Google
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: La risorsa data non è stato trovato.
       forbidden: L'azione richiesta era proibito.
@@ -463,6 +479,7 @@ it:
       slot: Slot
       block: Blocco
       session_history: Cronologia della sessione
+      multimedia: Multimedia
     attributes:
       context:
         name: Nome

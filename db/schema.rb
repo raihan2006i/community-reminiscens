@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150215192652) do
+ActiveRecord::Schema.define(version: 20150215231050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -133,7 +134,7 @@ ActiveRecord::Schema.define(version: 20150215192652) do
   add_index "groups", ["manager_id"], name: "index_groups_on_manager_id", using: :btree
 
   create_table "multimedia", force: true do |t|
-    t.string   "url"
+    t.text     "uri"
     t.string   "type"
     t.string   "source"
     t.datetime "created_at"
@@ -142,7 +143,10 @@ ActiveRecord::Schema.define(version: 20150215192652) do
     t.string   "media_content_type"
     t.integer  "media_file_size"
     t.datetime "media_updated_at"
+    t.hstore   "metadata"
   end
+
+  add_index "multimedia", ["metadata"], name: "index_multimedia_on_metadata", using: :gin
 
   create_table "people", force: true do |t|
     t.string   "first_name"

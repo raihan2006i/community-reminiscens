@@ -444,6 +444,22 @@ en:
             params:
               query: Query string to search questions. search will match this query string with question's content and theme
             errors:
+        multimedia:
+          short_desc: Multimedia
+          common:
+            params:
+              query: Query string to search multimedia
+              type: Type of the multimedia
+          local_search :
+            short_desc: Search multimedia in local database
+            full_desc:
+            params:
+            errors:
+          thirdparty_search:
+            short_desc: Search multimedia in thirdparty search engines. For now we search through only Google
+            full_desc:
+            params:
+            errors:
     errors:
       not_found: The given resource could not be found.
       forbidden: The requested action was forbidden.
@@ -469,6 +485,7 @@ en:
       slot: Slots
       block: Blocks
       session_history: Session Histories
+      multimedia: Multimedia
     model:
       context: Context
       theme: Theme
@@ -484,6 +501,7 @@ en:
       slot: Slot
       block: Block
       session_history: Session History
+      multimedia: Multimedia
     attributes:
       context:
         name: Name
