@@ -46,7 +46,9 @@ class Session < ActiveRecord::Base
   # Start instance method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  def start!
+    update_attribute(:status, STATUS_ONGOING)
+  end
   #
   # End instance method declaration
 

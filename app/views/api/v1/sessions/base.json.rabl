@@ -1,1 +1,1 @@
-attributes :id, :start_at, :end_at, :status, :created_at, :updated_at
+attributes :id, :title, :start_at, :end_at, :status, :created_at, :updated_at

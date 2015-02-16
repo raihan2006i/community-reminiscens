@@ -1,0 +1,11 @@
+<md-list>
+  <md-item ng-repeat="session in sessions">
+    <md-item-content>
+      <div class="md-tile-content">
+        <h3>{{session.title}}</h3>
+        <h3>{{session.status}}</h3>
+        <md-button ui-sref="sessions.live">Live</md-button>
+      </div>
+    </md-item-content>
+  </md-item>
+</md-list>

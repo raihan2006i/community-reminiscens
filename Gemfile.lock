@@ -63,6 +63,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     acts_as_commentable (4.0.1)
+    angularjs-rails (1.3.10)
     apipie-rails (0.2.6)
       json
     arbre (1.0.2)
@@ -107,6 +108,7 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hike (1.2.3)
+    httpclient (2.6.0.1)
     i18n (0.6.11)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
@@ -137,6 +139,10 @@ GEM
     pg (0.17.1)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
+    pusher (0.14.4)
+      httpclient (~> 2.5)
+      multi_json (~> 1.0)
+      signature (~> 0.1.8)
     rabl-rails (0.4.0)
       activesupport (>= 3.1)
       railties (>= 3.1)
@@ -207,6 +213,7 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     sequel (4.18.0)
+    signature (0.1.8)
     spring (1.1.3)
     sprockets (2.11.0)
       hike (~> 1.2)
@@ -227,6 +234,7 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    underscore-rails (1.7.0)
     warden (1.2.3)
       rack (>= 1.0)
     will_paginate (3.0.7)
@@ -238,6 +246,7 @@ DEPENDENCIES
   activeadmin!
   activeadmin-globalize!
   acts_as_commentable (~> 4.0.1)
+  angularjs-rails
   apipie-rails (~> 0.2.6)
   cancan (~> 1.6.10)
   coffee-rails (~> 4.0.0)
@@ -248,6 +257,7 @@ DEPENDENCIES
   jquery-rails
   paperclip (~> 4.2.0)
   pg
+  pusher
   rabl-rails (~> 0.4.0)
   rails (= 4.1.6)
   rails-i18n (~> 4.0.3)
@@ -260,4 +270,5 @@ DEPENDENCIES
   stuff-classifier!
   turbolinks
   uglifier (>= 1.3.0)
+  underscore-rails
   will_paginate (~> 3.0.7)

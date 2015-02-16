@@ -1,0 +1,60 @@
+@thisApp = angular.module("CommunityReminiscensClient", ['ngMaterial', 'ngSanitize', 'ui.router', 'sessions'])
+@thisApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
+    ($stateProvider, $urlRouterProvider, $locationProvider) ->
+
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+        });
+        # The default route
+        $urlRouterProvider.otherwise("/");
+
+        $stateProvider
+        .state("sessions",
+            url: "/sessions"
+            controller: @SessionsIndexCtrl
+            templateUrl: '<%= asset_path('sessions/index.html') %>'
+        ).state("sessions.live",
+            url: "/live"
+            controller: ($scope) ->
+                 console.log('live')
+#                id = $stateParams.id
+#                $scope.blocks = []
+#                $client = new Pusher('c09ba7bcc3d0a8ae542d')
+#                $pusher = $pusher($client)
+#
+#                $pusher.subscribe 'session.'+id
+#                $pusher.bind 'live', (data) ->
+#                    $scope.blocks.push(block)
+#                    return
+            templateUrl: '<%= asset_path('sessions/live.html') %>'
+        )
+])
+
+@thisApp.config(['$httpProvider', ($httpProvider) ->
+    #Send CSRF token with every requests
+    authToken = angular.element(document.getElementById("csrf")).attr("data-csrf")
+    $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken
+
+    #Send XMLHttpRequest header with all requests
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+    # Intercepts every http request.  If the response is success, pass it through.  If the response is an
+    # error, and that error is 401 (unauthorised) then the user isn't logged in, redirect to the login page.
+    # If the error is 403 (permission denied) then the user isn't have proper permission, redirect to permission denied page.
+    interceptor = ['$q', '$injector', ($q, $injector) ->
+        responseError: (rejection) ->
+            if rejection.status is 401
+                window.location = "/users/sign_in"
+                return rejection
+            else if rejection.status is 403
+                $injector.get('$state').transitionTo('accessDenied');
+                return rejection
+            $q.reject rejection
+    ]
+    $httpProvider.interceptors.push interceptor
+])
+
+@thisApp.run () ->
+    console.log('App is starting ...')
+    return

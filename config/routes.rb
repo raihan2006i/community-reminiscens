@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'pages/client'
+
   apipie
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users
@@ -25,8 +27,15 @@ Rails.application.routes.draw do
       resources :themes
       resources :session_histories
       resources :sessions do
+        member do
+          post :start
+        end
         resources :slots do
-          resources :blocks
+          resources :blocks do
+            member do
+              post :live
+            end
+          end
         end
       end
     end
