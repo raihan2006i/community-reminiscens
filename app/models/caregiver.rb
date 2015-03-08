@@ -34,6 +34,9 @@ class Caregiver < Person
   # A Caregiver is belongs to a +User+ object
   # This +User+ object is for sign-in in the system
   belongs_to :user, inverse_of: :caregiver, dependent: :destroy
+  has_many :stories, as: :creator
+  has_many :comments, as: :commenter
+  has_many :questions, as: :creator
   #
   # End relations declaration
 

@@ -1,7 +1,7 @@
-class Guest < Person
+class Person < ActiveRecord::Base
   # Start external modules declaration
   #
-  # Remove this line and start writing your code here
+  rolify
   #
   # End external modules declaration
 
@@ -15,60 +15,62 @@ class Guest < Person
   # Start constants declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  ROLE_CAREGIVER = 'caregiver'
+  ROLE_GUEST = 'guest'
+  AVAILABLE_ROLES = %W(#{ROLE_GUEST} #{ROLE_CAREGIVER})
   #
   # End constants declaration
 
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  # A Guest is belongs to a +Group+ object
-  belongs_to :group, inverse_of: :guests
+  has_and_belongs_to_many :roles
   #
   # End relations declaration
 
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  validates :group, presence: true
+  validates :first_name, :last_name, presence: true
   #
   # End validations declaration
 
   # Start callbacks declaration
   # Please try to maintain alphabetical order
   #
-  after_commit :assign_role, on: :create
+  # Remove this line and start writing your code here
   #
   # End callbacks declaration
 
   # Start instance method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  def name
+    [first_name, last_name].compact.join(' ')
+  end
   #
   # End instance method declaration
 
   # Start class method declaration
   # Please try to maintain alphabetical order
   #
-  default_scope { with_role(ROLE_GUEST) }
+  # Remove this line and start writing your code here
   #
   # End class method declaration
 
   # Protected methods
   # Please try to maintain alphabetical order
   protected
+  #
   # Remove this line and start writing your code here
   #
   # End protected methods
 
   # Private methods
   # Please try to maintain alphabetical order
-  #
   private
-  def assign_role
-    add_role ROLE_GUEST
-  end
+  #
+  # Remove this line and start writing your code here
   #
   # End private methods
 end

@@ -1,7 +1,10 @@
-class Person < ActiveRecord::Base
+class AdminUser < ActiveRecord::Base
   # Start external modules declaration
   #
-  rolify
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable,
+         :recoverable, :rememberable, :trackable, :validatable
   #
   # End external modules declaration
 
@@ -15,23 +18,23 @@ class Person < ActiveRecord::Base
   # Start constants declaration
   # Please try to maintain alphabetical order
   #
-  ROLE_CAREGIVER = 'caregiver'
-  ROLE_GUEST = 'guest'
-  AVAILABLE_ROLES = %W(#{ROLE_GUEST} #{ROLE_CAREGIVER})
+  # Remove this line and start writing your code here
   #
   # End constants declaration
 
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  has_many :stories, as: :creator
+  has_many :questions, as: :creator
+  has_many :comments, as: :commenter
   #
   # End relations declaration
 
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  validates :first_name, :last_name, presence: true
+  # Remove this line and start writing your code here
   #
   # End validations declaration
 
@@ -45,9 +48,7 @@ class Person < ActiveRecord::Base
   # Start instance method declaration
   # Please try to maintain alphabetical order
   #
-  def name
-    [first_name, last_name].compact.join(' ')
-  end
+  # Remove this line and start writing your code here
   #
   # End instance method declaration
 
@@ -57,14 +58,6 @@ class Person < ActiveRecord::Base
   # Remove this line and start writing your code here
   #
   # End class method declaration
-
-  # Protected methods
-  # Please try to maintain alphabetical order
-  protected
-  #
-  # Remove this line and start writing your code here
-  #
-  # End protected methods
 
   # Private methods
   # Please try to maintain alphabetical order

@@ -1,10 +1,7 @@
-class AdminUser < ActiveRecord::Base
+class Guest < Person
   # Start external modules declaration
   #
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable
+  # Remove this line and start writing your code here
   #
   # End external modules declaration
 
@@ -25,21 +22,23 @@ class AdminUser < ActiveRecord::Base
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  # A Guest is belongs to a +Group+ object
+  belongs_to :group, inverse_of: :guests
+  has_many :stories, as: :teller
   #
   # End relations declaration
 
   # Start validations declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  validates :group, presence: true
   #
   # End validations declaration
 
   # Start callbacks declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  after_commit :assign_role, on: :create
   #
   # End callbacks declaration
 
@@ -53,15 +52,24 @@ class AdminUser < ActiveRecord::Base
   # Start class method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  default_scope { with_role(ROLE_GUEST) }
   #
   # End class method declaration
 
+  # Protected methods
+  # Please try to maintain alphabetical order
+  protected
+  # Remove this line and start writing your code here
+  #
+  # End protected methods
+
   # Private methods
   # Please try to maintain alphabetical order
-  private
   #
-  # Remove this line and start writing your code here
+  private
+  def assign_role
+    add_role ROLE_GUEST
+  end
   #
   # End private methods
 end
