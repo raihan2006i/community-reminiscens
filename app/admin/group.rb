@@ -14,7 +14,7 @@ ActiveAdmin.register Group do
     f.semantic_errors
     f.inputs do
       f.input :name
-      f.input :manager, collection: Caregiver.as_options
+      f.input :manager, collection: Moderator.as_options
     end
     f.actions
   end

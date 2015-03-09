@@ -1,4 +1,4 @@
-ActiveAdmin.register Caregiver do
+ActiveAdmin.register Moderator do
   controller do
     def scoped_collection
       end_of_association_chain.includes(:user)

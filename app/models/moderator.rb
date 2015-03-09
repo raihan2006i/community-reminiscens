@@ -1,4 +1,4 @@
-class Caregiver < Person
+class Moderator < Person
   # Start external modules declaration
   #
   # Remove this line and start writing your code here
@@ -31,12 +31,13 @@ class Caregiver < Person
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  # A Caregiver is belongs to a +User+ object
+  # A Moderator is belongs to a +User+ object
   # This +User+ object is for sign-in in the system
-  belongs_to :user, inverse_of: :caregiver, dependent: :destroy
+  belongs_to :user, inverse_of: :Moderator, dependent: :destroy
   has_many :stories, as: :creator
   has_many :comments, as: :commenter
   has_many :questions, as: :creator
+  has_one :group, as: :manager
   #
   # End relations declaration
 

@@ -18,7 +18,7 @@ class Ability
     can :manage, Group
     can :manage, Story
     can :manage, StoryFragment
-    can :manage, Caregiver
+    can :manage, Moderator
     can :manage, Guest
     can :manage, Attachment
     can :manage, Comment

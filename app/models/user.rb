@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   # Start relations declaration
   # Please try to maintain alphabetical order
   #
-  has_one :caregiver, inverse_of: :user
+  has_one :moderator, inverse_of: :user
   #
   # End relations declaration
 

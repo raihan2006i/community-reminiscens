@@ -56,14 +56,14 @@ class Api::V1::CaregiversController < Api::V1::BaseController
   error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
   error code: 404, desc: 'api.docs.resources.common.errors.not_found'
   def authorize
-    @caregiver = Caregiver.authorize!(params[:email], params[:password])
+    @caregiver = Moderator.authorize!(params[:email], params[:password])
   end
 
   api :GET, '/v1/caregivers', 'api.docs.resources.caregivers.index.short_desc'
   param_group :pagination
   error code: 400, desc: 'api.docs.resources.common.errors.bad_request'
   def index
-    @caregivers = Caregiver.includes(:user).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
+    @caregivers = Moderator.includes(:user).paginate(page: params[:page] || 1, per_page: params[:per_page] || 10)
   end
 
   api :GET, '/v1/caregivers/:id', 'api.docs.resources.caregivers.show.short_desc'
@@ -76,7 +76,7 @@ class Api::V1::CaregiversController < Api::V1::BaseController
   error code: 404, desc: I18n.t('api.docs.resources.common.errors.not_found')
   error code: 422, desc: I18n.t('api.docs.resources.common.errors.invalid_resource')
   def create
-    @caregiver = Caregiver.new(permitted_create_params)
+    @caregiver = Moderator.new(permitted_create_params)
     if @caregiver.save
       render action: :show
     else
@@ -99,7 +99,7 @@ class Api::V1::CaregiversController < Api::V1::BaseController
 
   private
   def set_caregiver
-    @caregiver = Caregiver.find(params[:id])
+    @caregiver = Moderator.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

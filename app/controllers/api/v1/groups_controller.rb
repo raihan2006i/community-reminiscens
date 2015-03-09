@@ -20,7 +20,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
 * *name*:  *string* \n
 Name of the group
 * *manager_id*:  *integer* \n
-Manager of the group. <tt>manager_id</tt> should be a Caregiver <tt>id</tt>
+Manager of the group. <tt>manager_id</tt> should be a Moderator <tt>id</tt>
 ---
 EOS
   end
