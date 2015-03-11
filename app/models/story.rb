@@ -33,6 +33,7 @@ class Story < ActiveRecord::Base
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many :story_fragments, dependent: :destroy
   has_many :comments, as: :commentable
+  has_many :blocks, as: :blockable
 
   accepts_nested_attributes_for :context, reject_if: proc { |attributes| attributes['name'].blank? }
   accepts_nested_attributes_for :theme, reject_if: proc { |attributes| attributes['name'].blank? }

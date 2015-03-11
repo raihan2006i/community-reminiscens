@@ -38,6 +38,9 @@ class Moderator < Person
   has_many :comments, as: :commenter
   has_many :questions, as: :creator
   has_one :group, as: :manager
+  has_many :sessions, as: :creator
+  has_many :slots, as: :creator
+  has_many :blocks, as: :creator
   #
   # End relations declaration
 

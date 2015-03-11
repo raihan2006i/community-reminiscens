@@ -26,6 +26,7 @@ class Question < ActiveRecord::Base
   #
   belongs_to :creator, polymorphic: true
   belongs_to :theme
+  has_many :blocks, as: :blockable
   #
   # End relations declaration
 
