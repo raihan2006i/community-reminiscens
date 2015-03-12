@@ -46,7 +46,41 @@ class AdminUser < ActiveRecord::Base
   # Start instance method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  def first_name
+    nil
+  end
+
+  def title
+    nil
+  end
+
+  def last_name
+    nil
+  end
+
+  def birthday
+    nil
+  end
+
+  def address
+    nil
+  end
+
+  def city
+    nil
+  end
+
+  def country
+    nil
+  end
+
+  def phone
+    nil
+  end
+
+  def mobile
+    nil
+  end
   #
   # End instance method declaration
 

@@ -79,6 +79,11 @@ class Question < ActiveRecord::Base
   #
   default_scope { includes(:translations) }
   pg_search_scope :search, against: :content, associated_against: { theme: :name }
+
+  def self.suggest(guest)
+    theme_names = guest.themes.pluck(:name).uniq.map(&:downcase).join(' ')
+    search(theme_names).order('RANDOM()')
+  end
   #
   # End class method declaration
 

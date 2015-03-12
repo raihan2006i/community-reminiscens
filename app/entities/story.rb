@@ -1,6 +1,7 @@
 class Story < ActiveRecord::Base
   # Start external modules declaration
   #
+  include PgSearch
   acts_as_commentable
   #
   # End external modules declaration
@@ -71,7 +72,13 @@ class Story < ActiveRecord::Base
   # Start class method declaration
   # Please try to maintain alphabetical order
   #
-  # Remove this line and start writing your code here
+  pg_search_scope :similar, :against => {
+      :title => 'A'
+  }, :associated_against => {
+      :story_fragments => :content,
+      :theme => :name,
+      :context => :name
+  }, :using => [:tsearch, :dmetaphone]
   #
   # End class method declaration
 

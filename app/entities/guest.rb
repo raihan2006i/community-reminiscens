@@ -24,6 +24,8 @@ class Guest < Person
   #
   # A Guest is belongs to a +Group+ object
   belongs_to :group, inverse_of: :guests
+  has_many :stories, inverse_of: :teller, foreign_key: :teller_id
+  has_many :themes, through: :stories
   #
   # End relations declaration
 
