@@ -26,6 +26,7 @@ class Session < ActiveRecord::Base
   #
   belongs_to :creator, polymorphic: true
   has_many :slots, dependent: :destroy
+  has_many :blocks, through: :slots
   has_many :session_histories, dependent: :destroy
   #
   # End relations declaration

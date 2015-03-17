@@ -1,0 +1,20 @@
+<%= javascript_include_tag 'https://js.pusher.com/2.2/pusher.min.js' %>
+<div id="pusher"></div>
+
+<script type="application/javascript">
+$(function(){
+  var socket = new Pusher('c09ba7bcc3d0a8ae542d', {
+    cluster: 'eu'
+  });
+  var my_channel = socket.subscribe('session.<%= @session.id %>');
+  var div = $("#pusher");
+
+  socket.bind('live',
+      function(data) {
+        // Add data in div
+        div.append("<p><b>"+data.content+"</b> | created at: "+data.created_at+" </p>");
+        console.log(data);
+      }
+  );
+});
+</script>

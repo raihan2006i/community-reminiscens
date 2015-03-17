@@ -40,6 +40,11 @@ ActiveAdmin.register Block do
     end
   end
 
+  member_action :live, method: :put do
+    resource.live
+    render nothing: true
+  end
+
   menu false
   navigation_menu :default
   permit_params :blockable

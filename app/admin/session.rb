@@ -41,18 +41,46 @@ ActiveAdmin.register Session do
   end
 
   show do
-    panel 'Session Details' do
-      attributes_table_for resource do
-        row :id
-        row :title
-        row :start_at
-        row :end_at
-        row :status do |session|
-          status_tag session.status.humanize, session.status
+    columns do
+      column span: 6 do
+        panel 'Session Details' do
+          attributes_table_for resource do
+            row :id
+            row :title
+            row :start_at
+            row :end_at
+            row :status do |session|
+              status_tag session.status.humanize, session.status
+            end
+            row :created_at
+            row :updated_at
+            row :creator
+          end
         end
-        row :created_at
-        row :updated_at
-        row :creator
+      end
+      column span: 6 do
+        panel 'Event Messages' do
+          render partial: 'event_messages'
+        end
+      end
+    end
+    columns do
+      column span: 12 do
+        panel 'Blocks' do
+          collection = resource.blocks.page(params[:blocks_page]).per(10)
+          pagination_options = {param_name: 'blocks_page', download_links: false}
+          paginated_collection(collection, pagination_options) do
+            table_options = { id: 'blocks-table', class: 'index_table' }
+            table_for(collection, table_options) do
+              column :id
+              column :slot
+              column(:question) {|block| block.blockable.content}
+              column :action do |block|
+                link_to 'Live', live_admin_block_path(block), remote: true, method: :put
+              end
+            end
+          end
+        end
       end
     end
   end
