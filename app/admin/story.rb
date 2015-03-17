@@ -10,6 +10,7 @@ ActiveAdmin.register Story do
     end
   end
 
+  filter :title
   filter :teller
   filter :telling_date
   filter :created_at
@@ -19,6 +20,7 @@ ActiveAdmin.register Story do
   form do |f|
     f.semantic_errors
     f.inputs do
+      f.input :title
       f.input :teller
       f.input :theme
       f.input :context
@@ -53,6 +55,7 @@ ActiveAdmin.register Story do
   index do
     selectable_column
     id_column
+    column :title
     column :teller
     column :telling_date
     column :creator

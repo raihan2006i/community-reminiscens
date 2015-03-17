@@ -98,3 +98,5 @@ gem 'pusher'
 gem 'angularjs-rails'
 
 gem 'underscore-rails'
+
+gem 'active_skin'

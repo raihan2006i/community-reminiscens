@@ -10,7 +10,7 @@ ActiveAdmin.register Guest do
       f.input :first_name, required: true
       f.input :last_name, required: true
       f.input :title
-      f.input :birthday
+      f.input :birthday, as: :datepicker
       f.input :address
       f.input :city
       f.input :country
@@ -26,6 +26,7 @@ ActiveAdmin.register Guest do
     id_column
     column :first_name
     column :last_name
+    column :group
     column :created_at
     actions
   end

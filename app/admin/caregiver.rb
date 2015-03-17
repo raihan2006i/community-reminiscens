@@ -17,7 +17,7 @@ ActiveAdmin.register Caregiver do
       f.input :first_name, required: true
       f.input :last_name, required: true
       f.input :title
-      f.input :birthday
+      f.input :birthday, as: :datepicker
       f.input :address
       f.input :city
       f.input :country
