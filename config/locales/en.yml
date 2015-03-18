@@ -509,3 +509,5 @@ en:
         name: Name
       story_fragment:
         content: Content
+  active_admin:
+    powered_by: ""

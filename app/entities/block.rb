@@ -25,7 +25,7 @@ class Block < ActiveRecord::Base
   belongs_to :creator, polymorphic: true
   belongs_to :blockable, polymorphic: true
   belongs_to :slot
-  has_and_belongs_to_many :multimedia
+  # has_and_belongs_to_many :multimedia
   #
   # End relations declaration
 

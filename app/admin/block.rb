@@ -24,7 +24,7 @@ ActiveAdmin.register Block do
     id_column
     column :blockable
     column :created_at
-
+    actions
   end
 
   show do

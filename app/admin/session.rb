@@ -17,8 +17,8 @@ ActiveAdmin.register Session do
     f.semantic_errors
     f.inputs do
       f.input :title
-      f.input :start_at
-      f.input :end_at
+      f.input :start_at, as: :datepicker
+      f.input :end_at, as: :datepicker
       f.input :status, collection: Session::status_options_for_dropdown
     end
     f.actions
@@ -35,7 +35,7 @@ ActiveAdmin.register Session do
     end
     column :creator
     column :created_at
-    actions defaults: false do |session|
+    actions defaults: true do |session|
       link_to('Slots', admin_session_slots_path(session)) + ' ' + link_to('Histories', admin_session_session_histories_path(session))
     end
   end
