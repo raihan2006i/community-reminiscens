@@ -24,7 +24,7 @@ ActiveAdmin.register Story do
       f.input :teller
       f.input :theme
       f.input :context
-      f.input :telling_date
+      f.input :telling_date, as: :datepicker
       f.input :other_theme
       f.input :other_context
     end
@@ -72,7 +72,7 @@ ActiveAdmin.register Story do
   end
 
   menu priority: 8, url: -> { admin_stories_path(locale: I18n.locale) }
-  permit_params :teller_id, :theme_id, :context_id, :telling_date, :other_theme, :other_context, story_fragments_attributes: [:id, :content, :_destroy], attachments_attributes: [:id, :media, :_destroy], comments_attributes: [:id, :comment, :_destroy]
+  permit_params :title, :teller_id, :theme_id, :context_id, :telling_date, :other_theme, :other_context, story_fragments_attributes: [:id, :content, :_destroy], attachments_attributes: [:id, :media, :_destroy], comments_attributes: [:id, :comment, :_destroy]
 
   show do
     panel I18n.t('active_admin.details', model: I18n.t('activerecord.model.story')) do
